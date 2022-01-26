@@ -192,20 +192,6 @@ test_js:
     - 'echo "Deploying to Heroku. To see progress, go to: https://dashboard.heroku.com/apps/$HEROKU_APP/activity"'
     - curl -sf -X POST -m 900 https://heroku-deploy.torchbox.com/$HEROKU_APP/$CI_COMMIT_SHA?key=$DEPLOYMENT_KEY
 
-# Deploy to the staging server.
-deploy_staging:
-  variables:
-    # Your app's name.
-    #   $ heroku apps -t torchbox
-    HEROKU_APP: alpha-staging
-  only:
-    - staging
-  environment:
-    name: staging
-    # Update with the correct staging URL
-    url: https://alpha.staging.torchbox.com
-  <<: *heroku_deployment_template
-
 # Deploy to the production site.
 deploy_production:
   variables:
@@ -213,7 +199,7 @@ deploy_production:
     #   $ heroku apps -t torchbox
     HEROKU_APP: alpha-production
   only:
-    - master
+    - main
   when: manual
   environment:
     name: production
