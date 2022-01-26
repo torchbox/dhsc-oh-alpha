@@ -1,0 +1,20 @@
+{
+  "wagtailkit_project_name": "alpha",
+  "wagtailkit_project_description": "DHSC Alpha - Occupational Health Workforce Dataset",
+  "wagtailkit_project_author": "Torchbox <hello@torchbox.com>",
+  "wagtailkit_repo_name": "alpha",
+  "wagtailkit_repo_url": "e.g. https://git.torchbox.com/dhsc/alpha",
+  "wagtailkit_http_auth_password": "showmealpha",
+  "use_people_app": false,
+  "use_events_app": false,
+  "use_news_app": false,
+  "use_standardpages_app": false,
+  "use_inlineindex_app": false,
+  "use_frontend_component_carousel": false,
+  "use_frontend_component_accordion": false,
+  "use_frontend_component_progress_bar": false,
+  "use_frontend_component_video_modal": false,
+  "use_frontend_component_tabs": false,
+  "use_react": false,
+  "use_vue": false
+}
