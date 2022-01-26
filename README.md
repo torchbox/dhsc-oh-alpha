@@ -63,7 +63,7 @@ If you are using Docker Desktop, ensure the Resources:File Sharing settings allo
 Starting a local build can be done by running:
 
 ```bash
-git clone [URL TO GIT REMOTE]
+git clone https://git.torchbox.com/dhsc/alpha
 cd alpha
 fab build
 fab migrate
