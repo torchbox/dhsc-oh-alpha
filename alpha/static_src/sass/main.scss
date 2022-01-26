@@ -1,5 +1,7 @@
 // Vendor
 @import 'vendor/normalize';
+
+/**
 @import '../../../node_modules/@glidejs/glide/src/assets/sass/glide.core';
 
 // Abstracts
@@ -46,3 +48,6 @@
 
 // Utilities
 @import 'utilities/utilities';
+**/
+
+@import '../../../node_modules/govuk-frontend/govuk/all';

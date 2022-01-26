@@ -19,7 +19,7 @@ services:
       SECRET_KEY: local_dev_secret_key
       SECURE_SSL_REDIRECT: 'false'
       STATIC_DIR: /app/static/
-      STATIC_URL: /static/
+      STATIC_URL: /assets/
     command: tail -f /dev/null # do nothing forever - exec commands elsewhere
     ports:
       - 8000:8000 # runserver

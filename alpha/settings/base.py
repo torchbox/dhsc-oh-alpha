@@ -221,9 +221,9 @@ STATIC_ROOT = env.get("STATIC_DIR", os.path.join(BASE_DIR, "static"))
 
 
 # This is the URL that will be used when serving static files, e.g.
-# https://llamasavers.com/static/
+# https://llamasavers.com/assets/
 # https://docs.djangoproject.com/en/stable/ref/settings/#static-url
-STATIC_URL = env.get("STATIC_URL", "/static/")
+STATIC_URL = env.get("STATIC_URL", "/assets/")
 
 
 # Where in the filesystem the media (user uploaded) content is stored.

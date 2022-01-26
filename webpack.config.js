@@ -37,6 +37,27 @@ const options = {
                 ignore: ['cssBackgrounds/*'],
             },
         ]),
+        new CopyPlugin([
+            {
+                // copy all the gov.uk fonts
+                from: 'fonts',
+                context: path.resolve(
+                    `./${projectRoot}/../node_modules/govuk-frontend/govuk/assets/`,
+                ),
+                to: path.resolve(`./${projectRoot}/static_compiled/fonts`),
+            },
+        ]),
+        new CopyPlugin([
+            {
+                // copy all the gov.uk images
+                from: 'images',
+                context: path.resolve(
+                    `./${projectRoot}/../node_modules/govuk-frontend/govuk/assets/`,
+                ),
+                to: path.resolve(`./${projectRoot}/static_compiled/images`),
+            },
+        ]),
+
         new MiniCssExtractPlugin({
             filename: 'css/[name].css',
         }),
@@ -208,7 +229,7 @@ const webpackConfig = (environment, argv) => {
             host: '0.0.0.0',
             allowedHosts: [],
             port: 3000,
-            publicPath: '/static/',
+            publicPath: '/assets/',
             index: '',
             stats,
             proxy: {

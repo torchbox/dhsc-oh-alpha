@@ -1,4 +1,5 @@
 import '@babel/polyfill';
+import { initAll } from 'govuk-frontend';
 import MobileMenu from './components/mobile-menu';
 import MobileSubMenu from './components/mobile-sub-menu';
 import DesktopSubMenu from './components/desktop-sub-menu';
@@ -13,6 +14,10 @@ import '../sass/main.scss';
 
 foreachPolyfill();
 closestPolyfill();
+
+// Worth us only initialising the specific components we use further down the line,
+// but for the sake of speed in Alpha:
+initAll();
 
 // Open the mobile menu callback
 function openMobileMenu() {
