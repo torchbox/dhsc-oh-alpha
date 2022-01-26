@@ -22,6 +22,7 @@ django-basic-auth-ip-whitelist = "~0.3.4"
 coverage = "^5.4"
 django-defender = "0.9.1"
 djhtml = "^1.4.11"
+crispy-forms-gds = "^0.2.3"
 
 [tool.poetry.extras]
 gunicorn = ["gunicorn"]

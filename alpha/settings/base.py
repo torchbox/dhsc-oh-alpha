@@ -62,6 +62,8 @@ INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",  # Must be before `django.contrib.staticfiles`
     "django.contrib.staticfiles",
     "django.contrib.sitemaps",
+    "crispy_forms",
+    "crispy_forms_gds",
 ]
 
 
@@ -624,3 +626,8 @@ TESTING = "test" in sys.argv
 # We don't need such a strong algorithm in tests, so use MD5
 if TESTING:
     PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
+
+# Crispy form settings
+# https://github.com/wildfish/crispy-forms-gds
+CRISPY_ALLOWED_TEMPLATE_PACKS = ["gds"]
+CRISPY_TEMPLATE_PACK = "gds"
