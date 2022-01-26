@@ -2,6 +2,9 @@
 {% extends 'alpha/base_page.html' %}
 {% load crispy_forms_tags %}
 
+{% block page_title %}
+    A simple test form
+{% endblock %}
 {% block content %}
     {% crispy form %}
 {% endblock %}
