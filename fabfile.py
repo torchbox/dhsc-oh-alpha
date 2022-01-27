@@ -20,9 +20,7 @@ FRONTEND = os.getenv("FRONTEND", "docker")
 PROJECT_DIR = "/app"
 LOCAL_DUMP_DIR = "database_dumps"
 
-PRODUCTION_APP_INSTANCE = "alpha-production"
-STAGING_APP_INSTANCE = "alpha-staging"
-DEVELOPMENT_APP_INSTANCE = "alpha-dev"
+PRODUCTION_APP_INSTANCE = "dhsc-alpha"
 
 LOCAL_MEDIA_DIR = "media"
 LOCAL_IMAGES_DIR = LOCAL_MEDIA_DIR + "/original_images"
@@ -195,64 +193,6 @@ def pull_production_data(c):
 def production_shell(c):
     """Spin up a one-time Heroku production dyno and connect to shell"""
     open_heroku_shell(c, PRODUCTION_APP_INSTANCE)
-
-
-#########
-# Staging
-#########
-
-
-@task
-def pull_staging_media(c):
-    """Pull media from staging AWS S3"""
-    pull_media_from_s3_heroku(c, STAGING_APP_INSTANCE)
-
-
-@task
-def pull_staging_images(c):
-    """Pull images from staging AWS S3"""
-    pull_images_from_s3_heroku(c, STAGING_APP_INSTANCE)
-
-
-@task
-def pull_staging_data(c):
-    """Pull database from staging Heroku Postgres"""
-    pull_database_from_heroku(c, STAGING_APP_INSTANCE)
-
-
-@task
-def staging_shell(c):
-    """Spin up a one-time Heroku staging dyno and connect to shell"""
-    open_heroku_shell(c, STAGING_APP_INSTANCE)
-
-
-#############
-# Development
-#############
-
-
-@task
-def pull_dev_media(c):
-    """Pull media from development AWS S3"""
-    pull_media_from_s3_heroku(c, DEVELOPMENT_APP_INSTANCE)
-
-
-@task
-def pull_dev_images(c):
-    """Pull images from development AWS S3"""
-    pull_images_from_s3_heroku(c, DEVELOPMENT_APP_INSTANCE)
-
-
-@task
-def pull_dev_data(c):
-    """Pull database from development Heroku Postgres"""
-    pull_database_from_heroku(c, DEVELOPMENT_APP_INSTANCE)
-
-
-@task
-def dev_shell(c):
-    """Spin up a one-time Heroku development dyno and connect to shell"""
-    open_heroku_shell(c, DEVELOPMENT_APP_INSTANCE)
 
 
 def delete_local_database(c, local_database_name=LOCAL_DATABASE_NAME):
