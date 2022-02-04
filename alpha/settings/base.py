@@ -632,3 +632,8 @@ if TESTING:
 # https://github.com/wildfish/crispy-forms-gds
 CRISPY_ALLOWED_TEMPLATE_PACKS = ["gds"]
 CRISPY_TEMPLATE_PACK = "gds"
+
+
+# https://docs.djangoproject.com/en/3.2/topics/http/sessions/#when-sessions-are-saved
+# because we are storing dictionaries in sessions
+SESSION_SAVE_EVERY_REQUEST = True
