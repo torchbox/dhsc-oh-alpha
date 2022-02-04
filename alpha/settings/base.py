@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "scout_apm.django",
     "alpha",
     "alpha.home",
+    "alpha.providers",
     "alpha.users",
     "alpha.forms",
     "django.contrib.admin",
