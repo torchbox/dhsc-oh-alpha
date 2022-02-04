@@ -12,7 +12,7 @@ private_urlpatterns = [
     path("django-admin/", admin.site.urls),
     # Search cache-control headers are set on the view itself.
     path("", include(home_urls)),
-    path("forms", include(form_urls)),
+    path("forms/", include(form_urls)),
 ]
 
 
