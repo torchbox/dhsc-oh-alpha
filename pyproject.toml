@@ -23,6 +23,7 @@ coverage = "^5.4"
 django-defender = "0.9.1"
 djhtml = "^1.4.11"
 crispy-forms-gds = "^0.2.3"
+django-gov-notify = "^0.3.0"
 
 [tool.poetry.extras]
 gunicorn = ["gunicorn"]

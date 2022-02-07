@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "crispy_forms",
     "crispy_forms_gds",
+    "django_gov_notify",
 ]
 
 
@@ -345,6 +346,15 @@ LOGGING = {
 
 
 # Email settings
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# Use gov notify API if the API key is present.
+GOVUK_NOTIFY_API_KEY = env.get("GOVUK_NOTIFY_API_KEY", None)
+GOVUK_NOTIFY_PLAIN_EMAIL_TEMPLATE_ID = "575d0cc7-d44d-439c-a566-11bcc9916572"
+if GOVUK_NOTIFY_API_KEY:
+    EMAIL_BACKEND = "django_gov_notify.backends.NotifyEmailBackend"
+
+
 # We use SMTP to send emails. We typically use transactional email services
 # that let us use SMTP.
 # https://docs.djangoproject.com/en/2.1/topics/email/
