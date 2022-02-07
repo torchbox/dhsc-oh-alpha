@@ -6,6 +6,7 @@ from django.views.generic import TemplateView
 
 from alpha.forms import urls as form_urls
 from alpha.home import urls as home_urls
+from alpha.registration import urls as registration_urls
 
 # Private URLs are not meant to be cached.
 private_urlpatterns = [
@@ -13,6 +14,7 @@ private_urlpatterns = [
     # Search cache-control headers are set on the view itself.
     path("", include(home_urls)),
     path("forms/", include(form_urls)),
+    path("registration/", include(registration_urls, namespace="registration")),
 ]
 
 

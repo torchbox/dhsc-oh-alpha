@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "alpha",
     "alpha.home",
     "alpha.providers",
+    "alpha.registration",
     "alpha.users",
     "alpha.forms",
     "django.contrib.admin",
