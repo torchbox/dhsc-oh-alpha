@@ -1,6 +1,6 @@
 from crispy_forms_gds.choices import Choice
 from crispy_forms_gds.helper import FormHelper
-from crispy_forms_gds.layout import Field, Layout, Size, Submit
+from crispy_forms_gds.layout import Field, Fieldset, Layout, Size, Submit
 from django import forms
 
 
@@ -56,3 +56,12 @@ class PersonDetailsForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.add_input(Submit("submit", "Continue"))
+        self.helper.layout = Layout(
+            Fieldset(
+                Field.text("full_name"),
+                Field.text("job_title"),
+                Field.text("email"),
+                Field.text("phone_number"),
+                legend="We will use these details to contact you about your organisation",
+            )
+        )

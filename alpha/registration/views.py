@@ -81,7 +81,6 @@ class PersonDetailsInput(FormView):
 
     def get_context_data(self, **kwargs):
         context = super(PersonDetailsInput, self).get_context_data(**kwargs)
-        context["testing_out"] = "this is a new context var"
         return context
 
     def form_valid(self, form):

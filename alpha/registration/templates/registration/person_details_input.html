@@ -7,18 +7,7 @@
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h2>Enter your user details</h2>
-            <p class="govuk-body-l">
-                We will use these details to contact you about your organisation
-            </p>
-            {% comment %}
-            <form action="" method="post" id="form">
-                {% csrf_token %}
-                <button class="govuk-button" id="submit-button" data-module="govuk-button" type="submit">
-                    Continue
-                </button>
-            </form> {% endcomment %}
             {% crispy form %}
-
         </div>
     </div>
 {% endblock %}
