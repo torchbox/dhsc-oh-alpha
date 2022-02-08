@@ -2,9 +2,10 @@
 {% extends 'alpha/base_page.html' %}
 {% load crispy_forms_tags %}
 
-{% block page_title %}
-    A simple test form
-{% endblock %}
+
 {% block content %}
+    <h1 class="govuk-heading-l">
+        A simple test form
+    </h1>
     {% crispy form %}
 {% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'alpha/base_page.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            {% crispy form %}
+        </div>
+    </div>
+{% endblock %}

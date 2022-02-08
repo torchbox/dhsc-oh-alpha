@@ -1,20 +1,72 @@
 {% extends 'alpha/base_page.html' %}
 
-{% block page_title %}Register{% endblock %}
-
 {% block content %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">Register as an occupational health provider</h1>
+
             <p class="govuk-body">
-                preamble.html
+                Occupational health is provided by a range of multidisciplinary professionals who help individuals to remain in, return to, and thrive at work.
+            </p>
+            <p class="govuk-body">
+                They do this by protecting and promoting the health, safety and wellbeing of people in their workplace or in relation to their job.
+            </p>
+            <p class="govuk-body">
+                Use this service to:
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>submit and manage {TODO} data about your [clinical] workforce</li>
+                <li>benchmark your workplace against others offering the same service</li>
+                <li>aid Government understanding of the occupational health workforce and the issues affecting it</li>
+                <li>sign up to our approved supplier list for future contracts</li>
+            </ul>
+            <p class="govuk-body">
+                Registering takes around 5 minutes.
+            </p>
+            <h2 class="govuk-heading-m">Before you start</h2>
+            <p class="govuk-body">
+                You must provide occupational health services in England.
+            </p>
+            <p class="govuk-body">
+                {TODO}
+            </p>
+            <p class="govuk-body">
+                We will need to verify your registration before you are able to submit your workforce data.
             </p>
 
-            <form action="" method="post" id="form">
-                {% csrf_token %}
-                <button class="govuk-button" id="submit-button" data-module="govuk-button" type="submit">
-                    Continue
-                </button>
-            </form>
+            <a href="{% url 'registration:organisation_select_input'%}" role="button" draggable="false" class="govuk-button govuk-!-margin-top-2 govuk-!-margin-bottom-8 govuk-button--start" data-module="govuk-button">
+                Start now
+                <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+                    <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
+                </svg>
+            </a>
+        </div>
+
+        <div class="govuk-grid-column-one-third">
+            <aside class="app-related-items" role="complementary">
+                <h2 class="govuk-heading-m" id="subsection-title">
+                    Related Content
+                </h2>
+                <nav role="navigation" aria-labelledby="subsection-title">
+                    <ul class="govuk-list govuk-!-font-size-16">
+                        <li>
+                            <a class="govuk-link" href="#">
+                                Guidance on the occupational health workforce dataset General Data Protection Regulation (GDPR) compliance
+                            </a>
+                        </li>
+                        <li>
+                            <a class="govuk-link" href="#">
+                                Further information on the benefits of providing occupational health workforce data
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="govuk-link govuk-!-font-weight-bold">
+                                More
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
         </div>
     </div>
 {% endblock %}
