@@ -1,6 +1,8 @@
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.views.generic import TemplateView
+from django.views.generic import FormView, TemplateView
+
+from alpha.registration import forms as registration_forms
 
 
 class Preamble(TemplateView):
@@ -32,23 +34,23 @@ class OrganisationSelectReview(TemplateView):
         # return redirect(reverse("registration:organisation_select_countries"))
 
 
-class OrganisationSelectCountries(TemplateView):
-    template_name = "registration/organisation_select_countries.html"
+class OrganisationSelectCountries(FormView):
+    template_name = "registration/countries.html"
+    form_class = registration_forms.CountriesForm
 
-    def post(self, request, *args, **kwargs):
-        # TODO: if org is not in England:
-        # return redirect(reverse("registration:not_eligible"))
-        # else:
+    def form_valid(self, form):
+        if "E" not in form.cleaned_data["countries"]:
+            return redirect(reverse("registration:not_eligible"))
         return redirect(reverse("registration:organisation_select_review"))
 
 
-class OrganisationCreateCountries(TemplateView):
-    template_name = "registration/organisation_create_countries.html"
+class OrganisationCreateCountries(FormView):
+    template_name = "registration/countries.html"
+    form_class = registration_forms.CountriesForm
 
-    def post(self, request, *args, **kwargs):
-        # TODO: if org is not in England:
-        # return redirect(reverse("registration:not_eligible"))
-        # else:
+    def form_valid(self, form):
+        if "E" not in form.cleaned_data["countries"]:
+            return redirect(reverse("registration:not_eligible"))
         return redirect(reverse("registration:organisation_create_postcode"))
 
 
