@@ -75,10 +75,17 @@ class OrganisationCreateDetails(TemplateView):
         return redirect(reverse("registration:person_details_input"))
 
 
-class PersonDetailsInput(TemplateView):
+class PersonDetailsInput(FormView):
     template_name = "registration/person_details_input.html"
+    form_class = registration_forms.PersonDetailsForm
 
-    def post(self, request, *args, **kwargs):
+    def get_context_data(self, **kwargs):
+        context = super(PersonDetailsInput, self).get_context_data(**kwargs)
+        return context
+
+    def form_valid(self, form):
+        # return super(PersonDetailsInput, self).form_valid(form)
+        # For now, forward the user
         return redirect(reverse("registration:person_details_review"))
 
 
