@@ -21,6 +21,7 @@ class CountriesForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
+        self.helper.attrs = {"novalidate": 1}
         self.helper.layout = Layout(
             Field.checkboxes("countries", legend_size=Size.LARGE),
             Submit("submit", "Continue"),
