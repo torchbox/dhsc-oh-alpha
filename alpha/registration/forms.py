@@ -56,6 +56,7 @@ class PersonDetailsForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.add_input(Submit("submit", "Continue"))
+        self.helper.attrs = {"novalidate": 1}
         self.helper.layout = Layout(
             Fieldset(
                 Field.text("full_name"),
