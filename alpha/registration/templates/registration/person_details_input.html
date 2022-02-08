@@ -1,5 +1,5 @@
 {% extends 'alpha/base_page.html' %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags crispy_forms_gds %}
 
 {% block page_title %}Register{% endblock %}
 
@@ -7,6 +7,7 @@
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h2>Enter your user details</h2>
+            {% error_summary form %}
             {% crispy form %}
         </div>
     </div>
