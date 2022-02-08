@@ -6,8 +6,10 @@ from django.views.generic import TemplateView
 class Preamble(TemplateView):
     template_name = "registration/preamble.html"
 
-    def post(self, request, *args, **kwargs):
-        return redirect(reverse("registration:organisation_select_input"))
+    def get(self, request, *args, **kwargs):
+        self.request.session.clear()
+        self.request.session["registration"] = {}
+        return super().get(request, *args, **kwargs)
 
 
 class OrganisationSelectInput(TemplateView):
@@ -91,3 +93,8 @@ class NotEligible(TemplateView):
 
 class Done(TemplateView):
     template_name = "registration/done.html"
+
+    def get(self, request, *args, **kwargs):
+        resp = super().get(request, *args, **kwargs)
+        self.request.session["registration"] = {}
+        return resp
