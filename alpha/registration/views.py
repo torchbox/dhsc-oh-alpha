@@ -70,8 +70,9 @@ class OrganisationCreateAddress(FormView):
         return redirect(reverse("registration:organisation_create_details"))
 
 
-class OrganisationCreateDetails(TemplateView):
+class OrganisationCreateDetails(FormView):
     template_name = "registration/organisation_create_details.html"
+    form_class = registration_forms.AdditionalOrgDetailsForm
 
     def post(self, request, *args, **kwargs):
         return redirect(reverse("registration:person_details_input"))

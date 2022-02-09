@@ -133,3 +133,36 @@ class CreateAddressForm(forms.Form):
                 '<a class="govuk-link" href="#">Change address</a>',
             ),
         )
+
+
+class AdditionalOrgDetailsForm(forms.Form):
+
+    website = forms.CharField(
+        label="Website",
+        widget=forms.TextInput(),
+        error_messages={"required": "Enter your name as it appears on your passport"},
+    )
+    email = forms.CharField(
+        label="Main organisation email address",
+        help_text="This should be a shared email like admin@myworkplace.com",
+        widget=forms.EmailInput(),
+        error_messages={"required": "Please add your email"},
+    )
+
+    phone_number = forms.CharField(
+        label="Phone number",
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.add_input(Submit("submit", "Continue"))
+        self.helper.attrs = {"novalidate": 1}
+        self.helper.layout = Layout(
+            Fieldset(
+                Field.text("website"),
+                Field.text("email"),
+                Field.text("phone_number"),
+                legend="We will use these details to verify that your organisation is an occupational health provider.",
+            )
+        )
