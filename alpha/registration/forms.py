@@ -1,7 +1,10 @@
+import re
+
 from crispy_forms_gds.choices import Choice
 from crispy_forms_gds.helper import FormHelper
 from crispy_forms_gds.layout import Field, Fieldset, Layout, Size, Submit
 from django import forms
+from django.core.exceptions import ValidationError
 
 
 class CountriesForm(forms.Form):
@@ -21,6 +24,7 @@ class CountriesForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
+        self.helper.attrs = {"novalidate": 1}
         self.helper.layout = Layout(
             Field.checkboxes("countries", legend_size=Size.LARGE),
             Submit("submit", "Continue"),
@@ -65,4 +69,35 @@ class PersonDetailsForm(forms.Form):
                 Field.text("phone_number"),
                 legend="We will use these details to contact you about your organisation",
             )
+        )
+
+
+class PostcodeForm(forms.Form):
+    postcode = forms.CharField(
+        label="Enter a postcode",
+        error_messages={"required": "A postcode is required"},
+    )
+
+    def clean_postcode(self):
+        data = self.cleaned_data
+        data["postcode"] = re.sub("[^A-Z0-9]", "", str(data["postcode"]).upper())
+
+        if data["postcode"] == "SW1A1AA":
+            return data
+
+        raise ValidationError(
+            "No Addresses Found with postcode: %(postcode)s",
+            params={"postcode": data["postcode"]},
+        )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.attrs = {"novalidate": 1}
+        self.helper.layout = Layout(
+            Fieldset(
+                Field.text("postcode"),
+                legend="We'll use your postcode to find the address.",
+            ),
+            Submit("submit", "Find address"),
         )

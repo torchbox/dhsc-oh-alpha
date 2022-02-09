@@ -54,10 +54,11 @@ class OrganisationCreateCountries(FormView):
         return redirect(reverse("registration:organisation_create_postcode"))
 
 
-class OrganisationCreatePostcode(TemplateView):
+class OrganisationCreatePostcode(FormView):
     template_name = "registration/organisation_create_postcode.html"
+    form_class = registration_forms.PostcodeForm
 
-    def post(self, request, *args, **kwargs):
+    def form_valid(self, form):
         return redirect(reverse("registration:organisation_create_address"))
 
 
