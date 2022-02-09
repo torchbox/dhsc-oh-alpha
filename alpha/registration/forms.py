@@ -127,11 +127,10 @@ class CreateAddressForm(forms.Form):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             "address",
-            Submit("submit", "Continue"),
-            HTML.details(
-                "Organisation address is not listed or is not correct",
-                '<a class="govuk-link" href="#">Change address</a>',
+            HTML.p(
+                '<a class="govuk-link" href="#">Organisation address is not listed or is not correct</a>'
             ),
+            Submit("submit", "Continue"),
         )
 
 
