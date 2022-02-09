@@ -2,7 +2,7 @@ import re
 
 from crispy_forms_gds.choices import Choice
 from crispy_forms_gds.helper import FormHelper
-from crispy_forms_gds.layout import Field, Fieldset, Layout, Size, Submit
+from crispy_forms_gds.layout import HTML, Field, Fieldset, Layout, Size, Submit
 from django import forms
 from django.core.exceptions import ValidationError
 
@@ -100,4 +100,68 @@ class PostcodeForm(forms.Form):
                 legend="We'll use your postcode to find the address.",
             ),
             Submit("submit", "Find address"),
+        )
+
+
+class CreateAddressForm(forms.Form):
+
+    address = forms.ChoiceField(
+        choices=(
+            ("", "10 addresses found"),
+            (1, "1 Richmond Road SE6 4AF"),
+            (2, "2 Richmond Road SE6 4AF"),
+            (3, "3 Richmond Road SE6 4AF"),
+            (4, "4 Richmond Road SE6 4AF"),
+            (5, "5 Richmond Road SE6 4AF"),
+            (6, "6 Richmond Road SE6 4AF"),
+            (7, "7 Richmond Road SE6 4AF"),
+            (8, "8 Richmond Road SE6 4AF"),
+            (9, "9 Richmond Road SE6 4AF"),
+            (10, "10 Richmond Road SE6 4AF"),
+        ),
+        label="",
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(CreateAddressForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            "address",
+            HTML.p(
+                '<a class="govuk-link" href="#">Organisation address is not listed or is not correct</a>'
+            ),
+            Submit("submit", "Continue"),
+        )
+
+
+class AdditionalOrgDetailsForm(forms.Form):
+
+    website = forms.CharField(
+        label="Website",
+        widget=forms.TextInput(),
+        error_messages={"required": "Enter your name as it appears on your passport"},
+    )
+    email = forms.CharField(
+        label="Main organisation email address",
+        help_text="This should be a shared email like admin@myworkplace.com",
+        widget=forms.EmailInput(),
+        error_messages={"required": "Please add your email"},
+    )
+
+    phone_number = forms.CharField(
+        label="Phone number",
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.add_input(Submit("submit", "Continue"))
+        self.helper.attrs = {"novalidate": 1}
+        self.helper.layout = Layout(
+            Fieldset(
+                Field.text("website"),
+                Field.text("email"),
+                Field.text("phone_number"),
+                legend="We will use these details to verify that your organisation is an occupational health provider.",
+            )
         )

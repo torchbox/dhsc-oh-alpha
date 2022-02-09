@@ -62,17 +62,19 @@ class OrganisationCreatePostcode(FormView):
         return redirect(reverse("registration:organisation_create_address"))
 
 
-class OrganisationCreateAddress(TemplateView):
+class OrganisationCreateAddress(FormView):
     template_name = "registration/organisation_create_address.html"
+    form_class = registration_forms.CreateAddressForm
 
-    def post(self, request, *args, **kwargs):
+    def form_valid(self, form):
         return redirect(reverse("registration:organisation_create_details"))
 
 
-class OrganisationCreateDetails(TemplateView):
+class OrganisationCreateDetails(FormView):
     template_name = "registration/organisation_create_details.html"
+    form_class = registration_forms.AdditionalOrgDetailsForm
 
-    def post(self, request, *args, **kwargs):
+    def form_valid(self, form):
         return redirect(reverse("registration:person_details_input"))
 
 
