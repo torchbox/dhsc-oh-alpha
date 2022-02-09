@@ -2,7 +2,7 @@ import re
 
 from crispy_forms_gds.choices import Choice
 from crispy_forms_gds.helper import FormHelper
-from crispy_forms_gds.layout import Field, Fieldset, Layout, Size, Submit
+from crispy_forms_gds.layout import HTML, Field, Fieldset, Layout, Size, Submit
 from django import forms
 from django.core.exceptions import ValidationError
 
@@ -100,4 +100,36 @@ class PostcodeForm(forms.Form):
                 legend="We'll use your postcode to find the address.",
             ),
             Submit("submit", "Find address"),
+        )
+
+
+class CreateAddressForm(forms.Form):
+
+    address = forms.ChoiceField(
+        choices=(
+            ("", "10 addresses found"),
+            (1, "1 Richmond Road SE6 4AF"),
+            (2, "2 Richmond Road SE6 4AF"),
+            (3, "3 Richmond Road SE6 4AF"),
+            (4, "4 Richmond Road SE6 4AF"),
+            (5, "5 Richmond Road SE6 4AF"),
+            (6, "6 Richmond Road SE6 4AF"),
+            (7, "7 Richmond Road SE6 4AF"),
+            (8, "8 Richmond Road SE6 4AF"),
+            (9, "9 Richmond Road SE6 4AF"),
+            (10, "10 Richmond Road SE6 4AF"),
+        ),
+        label="",
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(CreateAddressForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            "address",
+            Submit("submit", "Continue"),
+            HTML.details(
+                "Organisation address is not listed or is not correct",
+                '<a class="govuk-link" href="#">Change address</a>',
+            ),
         )
