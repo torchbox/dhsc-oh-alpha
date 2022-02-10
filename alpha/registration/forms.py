@@ -182,10 +182,19 @@ class SetPasswordForm(forms.Form):
     def clean_password(self):
         data = self.cleaned_data
         MIN_LENGTH = 8
+
         if len(data["password"]) < MIN_LENGTH:
             raise forms.ValidationError(
                 "Password must be at least %d characters long." % MIN_LENGTH
             )
+
+        if not re.search(r"[0-9]", data["password"]) or not re.search(
+            r"[A-Z]", data["password"], re.IGNORECASE
+        ):
+            raise forms.ValidationError(
+                "Password must be at contain at least one number and one letter"
+            )
+
         return data["password"]
 
     def clean(self):
