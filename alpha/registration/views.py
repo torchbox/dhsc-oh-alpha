@@ -110,3 +110,11 @@ class Done(TemplateView):
         resp = super().get(request, *args, **kwargs)
         self.request.session["registration"] = {}
         return resp
+
+
+class SetPassword(FormView):
+    template_name = "registration/set_password.html"
+    form_class = registration_forms.SetPasswordForm
+
+    def form_valid(self, form):
+        return redirect(reverse("registration:TODO"))

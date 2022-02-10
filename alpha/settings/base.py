@@ -644,6 +644,9 @@ if TESTING:
 # https://github.com/wildfish/crispy-forms-gds
 CRISPY_ALLOWED_TEMPLATE_PACKS = ["gds"]
 CRISPY_TEMPLATE_PACK = "gds"
+CRISPY_CLASS_CONVERTERS = {
+    "passwordinput": "govuk-input",
+}
 
 
 # https://docs.djangoproject.com/en/3.2/topics/http/sessions/#when-sessions-are-saved

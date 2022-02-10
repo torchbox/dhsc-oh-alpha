@@ -68,4 +68,9 @@ urlpatterns = [
         views.Done.as_view(),
         name="done",
     ),
+    path(
+        "set_password/",
+        views.SetPassword.as_view(),
+        name="set_password",
+    ),
 ]
