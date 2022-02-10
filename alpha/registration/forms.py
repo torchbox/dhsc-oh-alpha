@@ -125,6 +125,7 @@ class CreateAddressForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(CreateAddressForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
+        self.helper.attrs = {"novalidate": 1}
         self.helper.layout = Layout(
             "address",
             HTML.p(
