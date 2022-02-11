@@ -73,4 +73,9 @@ urlpatterns = [
         views.SetPassword.as_view(),
         name="set_password",
     ),
+    path(
+        "account_created/",
+        views.AccountCreated.as_view(),
+        name="account_created",
+    ),
 ]
