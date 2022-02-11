@@ -125,6 +125,7 @@ class CreateAddressForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(CreateAddressForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
+        self.helper.attrs = {"novalidate": 1}
         self.helper.layout = Layout(
             "address",
             HTML.p(
@@ -164,4 +165,57 @@ class AdditionalOrgDetailsForm(forms.Form):
                 Field.text("phone_number"),
                 legend="We will use these details to verify that your organisation is an occupational health provider.",
             )
+        )
+
+
+class SetPasswordForm(forms.Form):
+    password = forms.CharField(
+        label="Password",
+        help_text="Minimum 8 characters in length with at least one number and one letter",
+        widget=forms.PasswordInput(),
+    )
+    confirm = forms.CharField(
+        label="Confirm Password",
+        widget=forms.PasswordInput(),
+    )
+
+    def clean_password(self):
+        data = self.cleaned_data
+        MIN_LENGTH = 8
+
+        if len(data["password"]) < MIN_LENGTH:
+            raise forms.ValidationError(
+                "Password must be at least %d characters long." % MIN_LENGTH
+            )
+
+        if not re.search(r"[0-9]", data["password"]) or not re.search(
+            r"[A-Z]", data["password"], re.IGNORECASE
+        ):
+            raise forms.ValidationError(
+                "Password must be at contain at least one number and one letter"
+            )
+
+        return data["password"]
+
+    def clean(self):
+        data = super().clean()
+        if data.get("password") != data.get("confirm"):
+            raise ValidationError("Passwords do not match")
+        return data
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.attrs = {"novalidate": 1}
+        self.helper.layout = Layout(
+            HTML.heading("h1", "l", "Create a password"),
+            HTML.p(
+                "Complete your registration by creating a secure and memorable password."
+            ),
+            HTML.p("Associated email: <strong>{TODO}</strong>"),
+            Fieldset(
+                Field.text("password"),
+                Field.text("confirm"),
+            ),
+            Submit("submit", "Continue"),
         )
