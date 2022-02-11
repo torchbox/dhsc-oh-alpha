@@ -20,10 +20,11 @@ class Preamble(TemplateView):
         return super().get(request, *args, **kwargs)
 
 
-class OrganisationSelectInput(TemplateView):
+class OrganisationSelectInput(FormView):
     template_name = "registration/organisation_select_input.html"
+    form_class = registration_forms.SelectOrgForm
 
-    def post(self, request, *args, **kwargs):
+    def form_valid(self, form):
         # TODO: if "can't find":
         # return redirect(reverse("registration:organisation_create_countries"))
         # else:
