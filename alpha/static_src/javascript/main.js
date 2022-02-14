@@ -1,6 +1,6 @@
 import '@babel/polyfill';
 import { initAll } from 'govuk-frontend';
-import accessibleAutocomplete from 'accessible-autocomplete';
+import accessibleAutocomplete from 'accessible-autocomplete'; // eslint-disable-line no-unused-vars
 import MobileMenu from './components/mobile-menu';
 import MobileSubMenu from './components/mobile-sub-menu';
 import DesktopSubMenu from './components/desktop-sub-menu';
@@ -56,18 +56,4 @@ document.addEventListener('DOMContentLoaded', () => {
     for (const skiplink of document.querySelectorAll(SkipLink.selector())) {
         new SkipLink(skiplink);
     } // Test react - add a div with a data attribute of `data-test-react` to test
-
-    // Pick providers from json in the template
-    // const providers = JSON.parse(
-    //     document.getElementById('providers').textContent,
-    // );
-    // console.log(providers);
-
-    const countries = ['France', 'Germany', 'United Kingdom'];
-
-    accessibleAutocomplete({
-        element: document.querySelector('#my-autocomplete-container'),
-        id: 'my-autocomplete', // To match it to the existing <label>.
-        source: countries,
-    });
 });

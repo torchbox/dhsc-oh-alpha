@@ -26,8 +26,11 @@ class OrganisationSelectInput(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(OrganisationSelectInput, self).get_context_data(**kwargs)
-        providers = serializers.serialize("json", Provider.objects.all())
-        context["providers"] = providers
+        providers = list(Provider.objects.all().values("name"))
+        list_of_providers = []
+        for provider in providers:
+            list_of_providers.append(provider["name"])
+        context["providers"] = list_of_providers
         return context
 
 

@@ -1,14 +1,12 @@
 {% extends 'alpha/base_page.html' %}
 {% load crispy_forms_tags crispy_forms_gds %}
 {% block page_title %}Register{% endblock %}
-
 {% block content %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-l">
                 Which organisation are you registering?
             </h1>
-            {{ providers|json_script:"providers" }}
             <form novalidate="1" method="post">
                 <fieldset class="govuk-fieldset">
                     <legend class="govuk-fieldset__legend">
@@ -28,4 +26,14 @@
 
         </div>
     </div>
+    {% block extra_js %}
+        <script>
+            var providers = {{ providers|safe }}
+            accessibleAutocomplete({
+                element: document.querySelector('#my-autocomplete-container'),
+                id: 'my-autocomplete', // To match it to the existing <label>.
+                source: providers,
+            });
+        </script>
+    {% endblock %}
 {% endblock %}
