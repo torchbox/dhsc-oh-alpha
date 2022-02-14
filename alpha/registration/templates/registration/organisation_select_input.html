@@ -8,8 +8,24 @@
             <h1 class="govuk-heading-l">
                 Which organisation are you registering?
             </h1>
-            {% error_summary form %}
-            {% crispy form %}
+            {{ providers|json_script:"providers" }}
+            <form novalidate="1" method="post">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend">
+                        Select from our list of accredited organisations or add your organisation manually.
+                        <div id="div_id_address" class="govuk-form-group">
+                            <br>
+                            <div id="id_address_hint" class="govuk-hint">Enter your organisations name</div>
+                        </div>
+                        <div id="my-autocomplete-container"></div>
+                    </legend>
+                </fieldset>
+                <p class="govuk-body">
+                    <a class="govuk-link" href="#">Add your organisation manually</a>
+                </p>
+                <input type="submit" name="submit" value="Continue" class="govuk-button" id="submit-id-submit">
+            </form>
+
         </div>
     </div>
 {% endblock %}

@@ -6,8 +6,6 @@ from crispy_forms_gds.layout import HTML, Field, Fieldset, Layout, Size, Submit
 from django import forms
 from django.core.exceptions import ValidationError
 
-from alpha.providers.models import Provider
-
 
 class ConfirmOrgDetailsForm(forms.Form):
     confirm = forms.ChoiceField(
@@ -237,26 +235,5 @@ class SetPasswordForm(forms.Form):
                 Field.text("password"),
                 Field.text("confirm"),
             ),
-            Submit("submit", "Continue"),
-        )
-
-
-class SelectOrgForm(forms.Form):
-    address = forms.ModelChoiceField(
-        queryset=Provider.objects.all(),
-        help_text="Enter your organisations name",
-        label="",
-    )
-
-    def __init__(self, *args, **kwargs):
-        super(SelectOrgForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.attrs = {"novalidate": 1}
-        self.helper.layout = Layout(
-            Fieldset(
-                Field.text("address"),
-                legend="Select from our list of accredited organisations or add your organisation manually.",
-            ),
-            HTML.p('<a class="govuk-link" href="#">Add your organisation manually</a>'),
             Submit("submit", "Continue"),
         )

@@ -2,6 +2,7 @@ import base64
 import json
 
 from django.conf import settings
+from django.core import serializers
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import FormView, TemplateView
@@ -20,15 +21,14 @@ class Preamble(TemplateView):
         return super().get(request, *args, **kwargs)
 
 
-class OrganisationSelectInput(FormView):
+class OrganisationSelectInput(TemplateView):
     template_name = "registration/organisation_select_input.html"
-    form_class = registration_forms.SelectOrgForm
 
-    def form_valid(self, form):
-        # TODO: if "can't find":
-        # return redirect(reverse("registration:organisation_create_countries"))
-        # else:
-        return redirect(reverse("registration:organisation_select_review"))
+    def get_context_data(self, **kwargs):
+        context = super(OrganisationSelectInput, self).get_context_data(**kwargs)
+        providers = serializers.serialize("json", Provider.objects.all())
+        context["providers"] = providers
+        return context
 
 
 class OrganisationSelectReview(FormView):
