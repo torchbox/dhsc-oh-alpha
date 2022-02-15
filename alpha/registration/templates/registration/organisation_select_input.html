@@ -8,6 +8,7 @@
                 Which organisation are you registering?
             </h1>
             <form novalidate="1" method="post">
+                {% csrf_token %}
                 <fieldset class="govuk-fieldset">
                     <legend class="govuk-fieldset__legend">
                         Select from our list of accredited organisations or add your organisation manually.
@@ -26,14 +27,14 @@
 
         </div>
     </div>
-    {% block extra_js %}
-        <script>
-            var providers = {{ providers|safe }}
-            accessibleAutocomplete({
-                element: document.querySelector('#my-autocomplete-container'),
-                id: 'my-autocomplete', // To match it to the existing <label>.
-                source: providers,
-            });
-        </script>
-    {% endblock %}
+{% endblock %}
+{% block extra_js %}
+    <script>
+        var providers = {{ providers|safe }}
+        accessibleAutocomplete({
+            element: document.querySelector('#my-autocomplete-container'),
+            id: 'my-autocomplete', // To match it to the existing <label>.
+            source: providers,
+        });
+    </script>
 {% endblock %}
