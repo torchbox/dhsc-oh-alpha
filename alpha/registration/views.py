@@ -30,6 +30,22 @@ class OrganisationSelectInput(TemplateView):
         context["providers"] = [provider["name"] for provider in providers]
         return context
 
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        provider = self.request.POST.get("input-autocomplete", None)
+
+        try:
+            # Have to search for the provider by name here
+            provider = Provider.objects.get(name=provider)
+        except Exception:
+            # No provider, reload the search
+            # TODO messaging
+            return self.render_to_response(context)
+        else:
+            # Add provider to the session
+            request.session["selected_provider_id"] = provider.id
+            return redirect(reverse("registration:organisation_select_review"))
+
 
 class OrganisationSelectReview(FormView):
     template_name = "registration/organisation_select_review.html"
@@ -37,8 +53,9 @@ class OrganisationSelectReview(FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        provider_id = 1  # TODO: get from session
-        context["provider"] = Provider.objects.all().get(id=provider_id)
+        provider_id = self.request.session.get("selected_provider_id", None)
+        if provider_id:
+            context["provider"] = Provider.objects.all().get(id=provider_id)
         return context
 
     def form_valid(self, form):
