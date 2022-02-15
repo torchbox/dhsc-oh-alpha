@@ -2,6 +2,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import FormView, TemplateView
 
+from alpha.providers.models import Provider
 from alpha.registration import forms as registration_forms
 
 
@@ -24,11 +25,21 @@ class OrganisationSelectInput(TemplateView):
         return redirect(reverse("registration:organisation_select_review"))
 
 
-class OrganisationSelectReview(TemplateView):
+class OrganisationSelectReview(FormView):
     template_name = "registration/organisation_select_review.html"
+    form_class = registration_forms.ConfirmOrgDetailsForm
 
-    def post(self, request, *args, **kwargs):
-        # TODO: if org is in England:
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        provider_id = 1  # TODO: get from session
+        context["provider"] = Provider.objects.all().get(id=provider_id)
+        return context
+
+    def form_valid(self, form):
+        if form.cleaned_data["confirm"] == "no":
+            return redirect(reverse("registration:organisation_select_input"))
+
+        # TODO: if org is in England (from session):
         return redirect(reverse("registration:person_details_input"))
         # else:
         # return redirect(reverse("registration:organisation_select_countries"))

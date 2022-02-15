@@ -7,6 +7,24 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 
+class ConfirmOrgDetailsForm(forms.Form):
+    confirm = forms.ChoiceField(
+        choices=(("yes", "Yes"), ("no", "No, search again")),
+        widget=forms.RadioSelect,
+        label="Are these details correct?",
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Field.radios(
+                "confirm", legend_size=Size.MEDIUM, legend_tag="h1", inline=True
+            ),
+            Submit("submit", "Continue"),
+        )
+
+
 class CountriesForm(forms.Form):
     COUNTRIES = (
         Choice("E", "England"),
