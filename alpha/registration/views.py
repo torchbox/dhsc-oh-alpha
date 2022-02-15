@@ -118,3 +118,7 @@ class SetPassword(FormView):
 
     def form_valid(self, form):
         return redirect(reverse("registration:TODO"))
+
+
+class AccountCreated(TemplateView):
+    template_name = "registration/account_created.html"
