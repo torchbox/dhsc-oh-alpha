@@ -230,7 +230,7 @@ class SetPasswordForm(forms.Form):
             HTML.p(
                 "Complete your registration by creating a secure and memorable password."
             ),
-            HTML.p("Associated email: <strong>{TODO}</strong>"),
+            HTML.p("Associated email: <strong>{{email}}</strong>"),
             Fieldset(
                 Field.text("password"),
                 Field.text("confirm"),
