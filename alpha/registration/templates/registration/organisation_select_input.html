@@ -21,7 +21,7 @@
                 <p class="govuk-body">
                     <a class="govuk-link" href="#">Add your organisation manually</a>
                 </p>
-                <input type="submit" name="submit" value="Continue" class="govuk-button" id="submit-id-submit">
+                <input type="submit" name="submit" value="Continue" class="govuk-button" id="submit-id-submit" disabled>
             </form>
 
         </div>
@@ -29,11 +29,18 @@
 {% endblock %}
 {% block extra_js %}
     <script>
+        function toggleSubmit(flag){
+            document.getElementById('submit-id-submit').removeAttribute("disabled");
+        }
         var providers = {{ providers|safe }}
         accessibleAutocomplete({
             element: document.querySelector('#my-autocomplete-container'),
             id: 'my-autocomplete', // To match it to the existing <label>.
             source: providers,
+            onConfirm: () => {
+                toggleSubmit()
+            },
         });
+
     </script>
 {% endblock %}
