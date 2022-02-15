@@ -1,6 +1,11 @@
+import base64
+import json
+
+from django.conf import settings
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import FormView, TemplateView
+from django_gov_notify.message import NotifyEmailMessage
 
 from alpha.providers.models import Provider
 from alpha.registration import forms as registration_forms
@@ -125,7 +130,46 @@ class NotEligible(TemplateView):
 class Done(TemplateView):
     template_name = "registration/done.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["email"] = self.request.session["registration"]["person"]["email"]
+        return context
+
     def get(self, request, *args, **kwargs):
+        TEMPLATE_ID = "306cb1b6-7a53-47ad-809d-a678cdaa3ea5"
+        email_address = self.request.session["registration"]["person"]["email"]
+        ref_num = "HDJ2123F"
+        password_link = self.request.build_absolute_uri(
+            reverse(
+                "registration:set_password",
+                args=(encode_email(email_address),),
+            )
+        )
+
+        if settings.GOVUK_NOTIFY_API_KEY:
+            notify_message = NotifyEmailMessage(
+                to=[email_address],
+                template_id=TEMPLATE_ID,
+                personalisation={
+                    "ref_num": ref_num,
+                    "password_link": password_link,
+                },
+            )
+            notify_message.send()
+        else:
+            print("email vars:")
+            print(
+                json.dumps(
+                    {
+                        "template_id": TEMPLATE_ID,
+                        "email_address": email_address,
+                        "ref_num": ref_num,
+                        "password_link": password_link,
+                    },
+                    indent=2,
+                )
+            )
+
         resp = super().get(request, *args, **kwargs)
         self.request.session["registration"] = {}
         return resp
@@ -135,9 +179,22 @@ class SetPassword(FormView):
     template_name = "registration/set_password.html"
     form_class = registration_forms.SetPasswordForm
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["email"] = decode_email(self.kwargs["email"])
+        return context
+
     def form_valid(self, form):
         return redirect(reverse("registration:TODO"))
 
 
 class AccountCreated(TemplateView):
     template_name = "registration/account_created.html"
+
+
+def encode_email(email):
+    return base64.urlsafe_b64encode(email.encode("utf-8")).decode("ascii")
+
+
+def decode_email(b64):
+    return base64.urlsafe_b64decode(b64).decode("utf-8")

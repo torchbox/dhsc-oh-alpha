@@ -69,7 +69,7 @@ urlpatterns = [
         name="done",
     ),
     path(
-        "set_password/",
+        "set_password/<str:email>",
         views.SetPassword.as_view(),
         name="set_password",
     ),
