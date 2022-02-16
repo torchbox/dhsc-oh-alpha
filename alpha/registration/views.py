@@ -59,10 +59,13 @@ class OrganisationSelectReview(FormView):
         if form.cleaned_data["confirm"] == "no":
             return redirect(reverse("registration:organisation_select_input"))
 
-        # TODO: if org is in England (from session):
-        return redirect(reverse("registration:person_details_input"))
-        # else:
-        # return redirect(reverse("registration:organisation_select_countries"))
+        # If org is in England (from session):
+        provider = get_provider_from_session(request=self.request)
+        if provider and provider.covers_england:
+            return redirect(reverse("registration:person_details_input"))
+        else:
+            # TODO - Can/Should we be redirecting back with messaging here?
+            return redirect(reverse("registration:organisation_select_countries"))
 
 
 class OrganisationSelectCountries(FormView):
