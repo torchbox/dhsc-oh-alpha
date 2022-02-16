@@ -37,7 +37,7 @@ class OrganisationSelectInput(TemplateView):
         try:
             # Have to search for the provider by name here
             provider = Provider.objects.get(name=provider)
-        except Exception:
+        except Provider.DoesNotExist:
             # No provider, reload the search with a general error
             context["error"] = True
             return self.render_to_response(context)
