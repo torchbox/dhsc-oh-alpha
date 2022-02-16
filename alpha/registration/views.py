@@ -2,7 +2,6 @@ import base64
 import json
 
 from django.conf import settings
-from django.core import serializers
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import FormView, TemplateView
