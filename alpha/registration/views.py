@@ -43,7 +43,7 @@ class OrganisationSelectInput(TemplateView):
             return self.render_to_response(context)
         else:
             # Add provider to the session
-            request.session["selected_provider_id"] = provider.id
+            request.session["registration"]["selected_provider_id"] = provider.id
             return redirect(reverse("registration:organisation_select_review"))
 
 
@@ -53,9 +53,11 @@ class OrganisationSelectReview(FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        provider_id = self.request.session.get("selected_provider_id", None)
-        if provider_id:
-            context["provider"] = Provider.objects.all().get(id=provider_id)
+        registration = self.request.session.get("registration", None)
+        if registration:
+            provider_id = registration.get("selected_provider_id", None)
+            if provider_id:
+                context["provider"] = Provider.objects.all().get(id=provider_id)
         return context
 
     def form_valid(self, form):
