@@ -52,11 +52,7 @@ class OrganisationSelectReview(FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        registration = self.request.session.get("registration", None)
-        if registration:
-            provider_id = registration.get("selected_provider_id", None)
-            if provider_id:
-                context["provider"] = Provider.objects.all().get(id=provider_id)
+        context["provider"] = get_provider_from_session(request=self.request)
         return context
 
     def form_valid(self, form):
@@ -134,9 +130,7 @@ class PersonDetailsReview(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        provider_id = 1  # TODO: get from session
-        context["provider"] = Provider.objects.all().get(id=provider_id)
+        context["provider"] = get_provider_from_session(request=self.request)
 
         context["person"] = self.request.session["registration"]["person"]
         return context
@@ -217,3 +211,11 @@ def encode_email(email):
 
 def decode_email(b64):
     return base64.urlsafe_b64decode(b64).decode("utf-8")
+
+
+def get_provider_from_session(request):
+    registration = request.session.get("registration", None)
+    if registration:
+        provider_id = registration.get("selected_provider_id", None)
+        if provider_id:
+            return Provider.objects.get(id=provider_id)
