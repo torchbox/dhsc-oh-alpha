@@ -1,20 +1,62 @@
 {% extends 'alpha/base_page.html' %}
-
 {% block page_title %}Register{% endblock %}
-
 {% block content %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <p class="govuk-body">
-                organisation_select_input.html
-            </p>
+            <h1 class="govuk-heading-l">
+                Which organisation are you registering?
+            </h1>
 
-            <form action="" method="post" id="form">
+            {% if error %}
+                <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="govuk-error-summary">
+                    <h2 class="govuk-error-summary__title" id="error-summary-title">
+                        There is a problem
+                    </h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li>
+                                <a href="#my-autocomplete">Try and search again</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+
+            <form novalidate="1" method="post">
                 {% csrf_token %}
-                <button class="govuk-button" id="submit-button" data-module="govuk-button" type="submit">
-                    Continue
-                </button>
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend">
+                        Select from our list of accredited organisations or add your organisation manually.
+                        <div id="div_id_address" class="govuk-form-group">
+                            <br>
+                            <div id="id_address_hint" class="govuk-hint">Enter your organisations name</div>
+                        </div>
+                        <div id="my-autocomplete-container"></div>
+                    </legend>
+                </fieldset>
+                <p class="govuk-body">
+                    <a class="govuk-link" href="{% url 'registration:organisation_create_address' %}">Add your organisation manually</a>
+                </p>
+                <input type="submit" name="submit" value="Continue" class="govuk-button" id="submit-id-submit" disabled>
             </form>
+
         </div>
     </div>
+{% endblock %}
+{% block extra_js %}
+    <script>
+        function toggleSubmit(flag){
+            document.getElementById('submit-id-submit').removeAttribute("disabled");
+        }
+        var providers = {{ providers|safe }}
+        accessibleAutocomplete({
+            element: document.querySelector('#my-autocomplete-container'),
+            id: 'my-autocomplete', // To match it to the existing <label>.
+            source: providers,
+            onConfirm: () => {
+                toggleSubmit()
+            },
+        });
+
+    </script>
 {% endblock %}

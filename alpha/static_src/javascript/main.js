@@ -1,5 +1,6 @@
 import '@babel/polyfill';
 import { initAll } from 'govuk-frontend';
+import accessibleAutocomplete from 'accessible-autocomplete';
 import MobileMenu from './components/mobile-menu';
 import MobileSubMenu from './components/mobile-sub-menu';
 import DesktopSubMenu from './components/desktop-sub-menu';
@@ -56,3 +57,5 @@ document.addEventListener('DOMContentLoaded', () => {
         new SkipLink(skiplink);
     } // Test react - add a div with a data attribute of `data-test-react` to test
 });
+
+window.accessibleAutocomplete = accessibleAutocomplete;

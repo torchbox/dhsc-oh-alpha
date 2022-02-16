@@ -23,11 +23,27 @@ class Preamble(TemplateView):
 class OrganisationSelectInput(TemplateView):
     template_name = "registration/organisation_select_input.html"
 
+    def get_context_data(self, **kwargs):
+        context = super(OrganisationSelectInput, self).get_context_data(**kwargs)
+        providers = Provider.objects.all().values("name").order_by("name")
+        context["providers"] = [provider["name"] for provider in providers]
+        return context
+
     def post(self, request, *args, **kwargs):
-        # TODO: if "can't find":
-        # return redirect(reverse("registration:organisation_create_countries"))
-        # else:
-        return redirect(reverse("registration:organisation_select_review"))
+        context = self.get_context_data(**kwargs)
+        provider = self.request.POST.get("input-autocomplete", None)
+
+        try:
+            # Have to search for the provider by name here
+            provider = Provider.objects.get(name=provider)
+        except Provider.DoesNotExist:
+            # No provider, reload the search with a general error
+            context["error"] = True
+            return self.render_to_response(context)
+        else:
+            # Add provider to the session
+            request.session["registration"]["selected_provider_id"] = provider.id
+            return redirect(reverse("registration:organisation_select_review"))
 
 
 class OrganisationSelectReview(FormView):
@@ -36,8 +52,11 @@ class OrganisationSelectReview(FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        provider_id = 1  # TODO: get from session
-        context["provider"] = Provider.objects.all().get(id=provider_id)
+        registration = self.request.session.get("registration", None)
+        if registration:
+            provider_id = registration.get("selected_provider_id", None)
+            if provider_id:
+                context["provider"] = Provider.objects.all().get(id=provider_id)
         return context
 
     def form_valid(self, form):
