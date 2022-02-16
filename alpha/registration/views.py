@@ -26,7 +26,7 @@ class OrganisationSelectInput(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(OrganisationSelectInput, self).get_context_data(**kwargs)
-        providers = Provider.objects.all().values("name")
+        providers = Provider.objects.all().values("name").order_by("name")
         context["providers"] = [provider["name"] for provider in providers]
         return context
 
