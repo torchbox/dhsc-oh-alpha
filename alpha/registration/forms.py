@@ -100,7 +100,7 @@ class PostcodeForm(forms.Form):
         data = self.cleaned_data
         data["postcode"] = re.sub("[^A-Z0-9]", "", str(data["postcode"]).upper())
 
-        if data["postcode"] == "SW1A1AA":
+        if data["postcode"] == "SE64AF":
             return data
 
         raise ValidationError(
