@@ -5,6 +5,7 @@ from crispy_forms_gds.helper import FormHelper
 from crispy_forms_gds.layout import HTML, Field, Fieldset, Layout, Size, Submit
 from django import forms
 from django.core.exceptions import ValidationError
+from django.shortcuts import reverse
 
 
 class ConfirmOrgDetailsForm(forms.Form):
@@ -148,6 +149,18 @@ class CreateAddressForm(forms.Form):
         self.helper.attrs = {"novalidate": 1}
         self.helper.layout = Layout(
             HTML.heading("h1", "l", "Select your organisation"),
+            HTML(
+                '<div class="govuk-grid-row">'
+                '<div class="govuk-grid-column-one-half">'
+                "<p>Postcode entered: <strong>SE6 4AF</strong></p>"
+                "</div>"
+                '<div class="govuk-grid-column-one-half">'
+                '<p><a class="govuk-link" href="'
+                + reverse("registration:organisation_create_postcode")
+                + '">Change</a></p>'
+                "</div>"
+                "</div>"
+            ),
             "address",
             HTML.p(
                 '<a class="govuk-link" href="#">Organisation address is not listed or is not correct</a>'
