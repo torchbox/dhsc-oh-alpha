@@ -204,7 +204,7 @@ class SetPassword(FormView):
         return context
 
     def form_valid(self, form):
-        return redirect(reverse("registration:TODO"))
+        return redirect(reverse("registration:account_created"))
 
 
 class AccountCreated(TemplateView):
