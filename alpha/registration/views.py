@@ -29,6 +29,10 @@ class OrganisationSelectInput(TemplateView):
         context["providers"] = [provider["name"] for provider in providers]
         return context
 
+    def get(self, request, *args, **kwargs):
+        request.session["registration"].pop("selected_provider_id", None)
+        return super().get(request, *args, **kwargs)
+
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         provider = self.request.POST.get("input-autocomplete", None)
