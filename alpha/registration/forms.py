@@ -18,6 +18,7 @@ class ConfirmOrgDetailsForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
+        self.helper.attrs = {"novalidate": 1}
         self.helper.layout = Layout(
             Field.radios(
                 "confirm", legend_size=Size.MEDIUM, legend_tag="h1", inline=True
