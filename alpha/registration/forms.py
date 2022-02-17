@@ -46,7 +46,7 @@ class CountriesForm(forms.Form):
         self.helper = FormHelper()
         self.helper.attrs = {"novalidate": 1}
         self.helper.layout = Layout(
-            Field.checkboxes("countries", legend_size=Size.LARGE),
+            Field.checkboxes("countries", legend_tag="h1", legend_size=Size.LARGE),
             Submit("submit", "Continue"),
         )
 
