@@ -74,7 +74,7 @@ class OrganisationSelectCountries(FormView):
     def form_valid(self, form):
         if "E" not in form.cleaned_data["countries"]:
             return redirect(reverse("registration:not_eligible"))
-        return redirect(reverse("registration:organisation_select_review"))
+        return redirect(reverse("registration:person_details_input"))
 
 
 class OrganisationCreateCountries(FormView):
