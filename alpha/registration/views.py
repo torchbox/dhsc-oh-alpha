@@ -29,6 +29,10 @@ class OrganisationSelectInput(TemplateView):
         context["providers"] = [provider["name"] for provider in providers]
         return context
 
+    def get(self, request, *args, **kwargs):
+        request.session["registration"].pop("selected_provider_id", None)
+        return super().get(request, *args, **kwargs)
+
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         provider = self.request.POST.get("input-autocomplete", None)
@@ -68,17 +72,17 @@ class OrganisationSelectReview(FormView):
 
 
 class OrganisationSelectCountries(FormView):
-    template_name = "registration/countries.html"
+    template_name = "registration/generic_form.html"
     form_class = registration_forms.CountriesForm
 
     def form_valid(self, form):
         if "E" not in form.cleaned_data["countries"]:
             return redirect(reverse("registration:not_eligible"))
-        return redirect(reverse("registration:organisation_select_review"))
+        return redirect(reverse("registration:person_details_input"))
 
 
 class OrganisationCreateCountries(FormView):
-    template_name = "registration/countries.html"
+    template_name = "registration/generic_form.html"
     form_class = registration_forms.CountriesForm
 
     def form_valid(self, form):
@@ -88,7 +92,7 @@ class OrganisationCreateCountries(FormView):
 
 
 class OrganisationCreatePostcode(FormView):
-    template_name = "registration/organisation_create_postcode.html"
+    template_name = "registration/generic_form.html"
     form_class = registration_forms.PostcodeForm
 
     def form_valid(self, form):
@@ -96,7 +100,7 @@ class OrganisationCreatePostcode(FormView):
 
 
 class OrganisationCreateAddress(FormView):
-    template_name = "registration/organisation_create_address.html"
+    template_name = "registration/generic_form.html"
     form_class = registration_forms.CreateAddressForm
 
     def form_valid(self, form):
@@ -104,7 +108,7 @@ class OrganisationCreateAddress(FormView):
 
 
 class OrganisationCreateDetails(FormView):
-    template_name = "registration/organisation_create_details.html"
+    template_name = "registration/generic_form.html"
     form_class = registration_forms.AdditionalOrgDetailsForm
 
     def form_valid(self, form):
@@ -112,7 +116,7 @@ class OrganisationCreateDetails(FormView):
 
 
 class PersonDetailsInput(FormView):
-    template_name = "registration/person_details_input.html"
+    template_name = "registration/generic_form.html"
     form_class = registration_forms.PersonDetailsForm
 
     def get_context_data(self, **kwargs):
@@ -191,7 +195,7 @@ class Done(TemplateView):
 
 
 class SetPassword(FormView):
-    template_name = "registration/set_password.html"
+    template_name = "registration/generic_form.html"
     form_class = registration_forms.SetPasswordForm
 
     def get_context_data(self, **kwargs):
@@ -200,7 +204,7 @@ class SetPassword(FormView):
         return context
 
     def form_valid(self, form):
-        return redirect(reverse("registration:TODO"))
+        return redirect(reverse("registration:account_created"))
 
 
 class AccountCreated(TemplateView):
