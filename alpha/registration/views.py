@@ -64,7 +64,6 @@ class OrganisationSelectReview(FormView):
         if provider and provider.covers_england:
             return redirect(reverse("registration:person_details_input"))
         else:
-            # TODO - Can/Should we be redirecting back with messaging here?
             return redirect(reverse("registration:organisation_select_countries"))
 
 
