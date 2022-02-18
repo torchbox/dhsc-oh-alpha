@@ -52,3 +52,12 @@
 
 @import '../../../node_modules/govuk-frontend/govuk/all';
 @import '../../../node_modules/accessible-autocomplete/src/autocomplete.css';
+
+.gov-inverse-header {
+    width: 100%;
+    background-color: $govuk-brand-colour;
+    h1 {
+        color: #fff; /* stylelint-disable-line */
+    }
+    box-sizing: border-box;
+}
