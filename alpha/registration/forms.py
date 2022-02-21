@@ -76,8 +76,9 @@ class PersonDetailsForm(forms.Form):
     )
 
     phone_number = forms.CharField(
-        label="Phone number",
+        label="Phone number (optional)",
         help_text="We will only use this if we are unable to contact you by email to verify your organisation.",
+        required=False,
     )
 
     def __init__(self, *args, **kwargs):
