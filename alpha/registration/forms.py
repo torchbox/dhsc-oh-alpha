@@ -232,7 +232,7 @@ class SetPasswordForm(forms.Form):
 
         if len(data["password"]) < MIN_LENGTH:
             raise forms.ValidationError(
-                "Password must be at least %d characters long" % MIN_LENGTH
+                "Password must be at least %d characters long." % MIN_LENGTH
             )
 
         if not re.search(r"[0-9]", data["password"]) or not re.search(
