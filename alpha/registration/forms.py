@@ -13,6 +13,7 @@ class ConfirmOrgDetailsForm(forms.Form):
         choices=(("yes", "Yes"), ("no", "No, search again")),
         widget=forms.RadioSelect,
         label="Are these details correct?",
+        error_messages={"required": "Confirm your organisation details."},
     )
 
     def __init__(self, *args, **kwargs):
@@ -39,6 +40,7 @@ class CountriesForm(forms.Form):
         choices=COUNTRIES,
         widget=forms.CheckboxSelectMultiple,
         label="Where does your organisation provide services?",
+        error_messages={"required": "Select at least one country."},
     )
 
     def __init__(self, *args, **kwargs):
@@ -46,6 +48,8 @@ class CountriesForm(forms.Form):
         self.helper = FormHelper()
         self.helper.attrs = {"novalidate": 1}
         self.helper.layout = Layout(
+            HTML.heading("h1", "l", "Where does your organisation provide services?"),
+            HTML.p("Select all that apply"),
             Field.checkboxes("countries", legend_tag="h1", legend_size=Size.LARGE),
             Submit("submit", "Continue"),
         )
@@ -56,24 +60,28 @@ class PersonDetailsForm(forms.Form):
     full_name = forms.CharField(
         label="Full name",
         widget=forms.TextInput(),
-        error_messages={"required": "Enter your name as it appears on your passport"},
+        error_messages={"required": "Enter your full name."},
     )
 
     job_title = forms.CharField(
-        label="Job title",
+        label="Job title (optional)",
         widget=forms.TextInput(),
-        error_messages={"required": "Please add your job title"},
+        required=False,
     )
 
     email = forms.CharField(
         label="Email address",
         help_text="Try to avoid shared email addresses like admin@myworkplace.com",
         widget=forms.EmailInput(),
-        error_messages={"required": "Please add your email"},
+        error_messages={
+            "required": "Enter an email address in the correct format, like name@example.com"
+        },
     )
 
     phone_number = forms.CharField(
-        label="Phone number",
+        label="Phone number (optional)",
+        help_text="We will only use this if we are unable to contact you by email to verify your organisation.",
+        required=False,
     )
 
     def __init__(self, *args, **kwargs):
@@ -85,10 +93,10 @@ class PersonDetailsForm(forms.Form):
             HTML.heading("h1", "l", "Enter your user details"),
             Fieldset(
                 Field.text("full_name"),
-                Field.text("job_title"),
                 Field.text("email"),
+                Field.text("job_title"),
                 Field.text("phone_number"),
-                legend="We will use these details to contact you about your organisation",
+                legend="We will use these details if we need to contact you about your organisation.",
             ),
         )
 
@@ -96,7 +104,7 @@ class PersonDetailsForm(forms.Form):
 class PostcodeForm(forms.Form):
     postcode = forms.CharField(
         label="Enter a postcode",
-        error_messages={"required": "A postcode is required"},
+        error_messages={"required": "Enter a postcode, like AA1 1AA"},
     )
 
     def clean_postcode(self):
@@ -107,7 +115,7 @@ class PostcodeForm(forms.Form):
             return data
 
         raise ValidationError(
-            "No Addresses Found with postcode: %(postcode)s",
+            "No addresses found with postcode: %(postcode)s",
             params={"postcode": data["postcode"]},
         )
 
@@ -142,6 +150,7 @@ class CreateAddressForm(forms.Form):
             (10, "10 Richmond Road SE6 4AF"),
         ),
         label="",
+        error_messages={"required": "Select an address."},
     )
 
     def __init__(self, *args, **kwargs):
@@ -173,19 +182,21 @@ class CreateAddressForm(forms.Form):
 class AdditionalOrgDetailsForm(forms.Form):
 
     website = forms.CharField(
-        label="Website",
-        widget=forms.TextInput(),
-        error_messages={"required": "Enter your name as it appears on your passport"},
+        label="Website (optional)", widget=forms.TextInput(), required=False
     )
     email = forms.CharField(
         label="Main organisation email address",
         help_text="This should be a shared email like admin@myworkplace.com",
         widget=forms.EmailInput(),
-        error_messages={"required": "Please add your email"},
+        error_messages={
+            "required": "Enter an email address in the correct format, like name@example.com"
+        },
     )
 
     phone_number = forms.CharField(
-        label="Phone number",
+        label="Phone number (optional)",
+        help_text="We will only use this if we are unable to contact you by email to verify your organisation.",
+        required=False,
     )
 
     def __init__(self, *args, **kwargs):
@@ -196,8 +207,8 @@ class AdditionalOrgDetailsForm(forms.Form):
         self.helper.layout = Layout(
             HTML.heading("h1", "l", "Enter your organisation’s contact details"),
             Fieldset(
-                Field.text("website"),
                 Field.text("email"),
+                Field.text("website"),
                 Field.text("phone_number"),
                 legend="We will use these details to verify that your organisation is an occupational health provider.",
             ),
@@ -211,7 +222,7 @@ class SetPasswordForm(forms.Form):
         widget=forms.PasswordInput(),
     )
     confirm = forms.CharField(
-        label="Confirm Password",
+        label="Confirm your password",
         widget=forms.PasswordInput(),
     )
 
