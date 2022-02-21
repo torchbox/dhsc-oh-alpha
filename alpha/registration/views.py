@@ -119,10 +119,6 @@ class PersonDetailsInput(FormView):
     template_name = "registration/generic_form.html"
     form_class = registration_forms.PersonDetailsForm
 
-    def get_context_data(self, **kwargs):
-        context = super(PersonDetailsInput, self).get_context_data(**kwargs)
-        return context
-
     def form_valid(self, form):
         self.request.session["registration"]["person"] = form.cleaned_data.copy()
 
@@ -137,8 +133,8 @@ class PersonDetailsReview(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["provider"] = get_provider_from_session(request=self.request)
-
         context["person"] = self.request.session["registration"]["person"]
+
         return context
 
 
@@ -201,6 +197,7 @@ class SetPassword(FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["email"] = decode_email(self.kwargs["email"])
+        context["disable_back_button"] = True
         return context
 
     def form_valid(self, form):
