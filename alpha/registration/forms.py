@@ -38,7 +38,7 @@ class CountriesForm(forms.Form):
     countries = forms.MultipleChoiceField(
         choices=COUNTRIES,
         widget=forms.CheckboxSelectMultiple,
-        label="Where does your organisation provide services?",
+        label="",
     )
 
     def __init__(self, *args, **kwargs):
@@ -46,6 +46,8 @@ class CountriesForm(forms.Form):
         self.helper = FormHelper()
         self.helper.attrs = {"novalidate": 1}
         self.helper.layout = Layout(
+            HTML.heading("h1", "l", "Where does your organisation provide services?"),
+            HTML.p("Select all that apply"),
             Field.checkboxes("countries", legend_tag="h1", legend_size=Size.LARGE),
             Submit("submit", "Continue"),
         )
@@ -60,9 +62,10 @@ class PersonDetailsForm(forms.Form):
     )
 
     job_title = forms.CharField(
-        label="Job title",
+        label="Job title (optional)",
         widget=forms.TextInput(),
         error_messages={"required": "Please add your job title"},
+        required=False,
     )
 
     email = forms.CharField(
@@ -74,6 +77,7 @@ class PersonDetailsForm(forms.Form):
 
     phone_number = forms.CharField(
         label="Phone number",
+        help_text="We will only use this if we are unable to contact you by email to verify your organisation.",
     )
 
     def __init__(self, *args, **kwargs):
@@ -85,10 +89,10 @@ class PersonDetailsForm(forms.Form):
             HTML.heading("h1", "l", "Enter your user details"),
             Fieldset(
                 Field.text("full_name"),
-                Field.text("job_title"),
                 Field.text("email"),
+                Field.text("job_title"),
                 Field.text("phone_number"),
-                legend="We will use these details to contact you about your organisation",
+                legend="We will use these details if we need to contact you about your organisation.",
             ),
         )
 
@@ -173,9 +177,7 @@ class CreateAddressForm(forms.Form):
 class AdditionalOrgDetailsForm(forms.Form):
 
     website = forms.CharField(
-        label="Website",
-        widget=forms.TextInput(),
-        error_messages={"required": "Enter your name as it appears on your passport"},
+        label="Website (optional)", widget=forms.TextInput(), required=False
     )
     email = forms.CharField(
         label="Main organisation email address",
@@ -185,7 +187,9 @@ class AdditionalOrgDetailsForm(forms.Form):
     )
 
     phone_number = forms.CharField(
-        label="Phone number",
+        label="Phone number (optional)",
+        help_text="We will only use this if we are unable to contact you by email to verify your organisation.",
+        required=False,
     )
 
     def __init__(self, *args, **kwargs):
@@ -196,8 +200,8 @@ class AdditionalOrgDetailsForm(forms.Form):
         self.helper.layout = Layout(
             HTML.heading("h1", "l", "Enter your organisation’s contact details"),
             Fieldset(
-                Field.text("website"),
                 Field.text("email"),
+                Field.text("website"),
                 Field.text("phone_number"),
                 legend="We will use these details to verify that your organisation is an occupational health provider.",
             ),
