@@ -66,7 +66,6 @@ class PersonDetailsForm(forms.Form):
     job_title = forms.CharField(
         label="Job title (optional)",
         widget=forms.TextInput(),
-        error_messages={"required": "Please add your job title"},
         required=False,
     )
 
