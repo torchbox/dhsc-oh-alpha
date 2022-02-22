@@ -26,16 +26,14 @@
 
             <form novalidate="1" method="post">
                 {% csrf_token %}
-                <fieldset class="govuk-fieldset">
-                    <legend class="govuk-fieldset__legend">
-                        Select from a list of organisations already known to us or add your organisation manually.
-                        <div id="div_id_organisation" class="govuk-form-group">
-                            <br>
-                            <div id="id_organisation_hint" class="govuk-hint">Enter your organisations name</div>
-                        </div>
-                        <div id="my-autocomplete-container"></div>
-                    </legend>
-                </fieldset>
+                <legend class="govuk-fieldset__legend">
+                    Select from a list of organisations already known to us or add your organisation manually.
+                    <div id="div_id_organisation" class="govuk-form-group">
+                        <br>
+                        <div id="id_organisation_hint" class="govuk-hint">Enter your organisations name</div>
+                    </div>
+                    <div id="my-autocomplete-container"></div>
+                </legend>
                 <p class="govuk-body">
                     <a class="govuk-link" href="{% url 'registration:organisation_create_postcode' %}">Add your organisation manually</a>
                 </p>

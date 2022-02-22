@@ -12,7 +12,6 @@ class ConfirmOrgDetailsForm(forms.Form):
     confirm = forms.ChoiceField(
         choices=(("yes", "Yes"), ("no", "No, search again")),
         widget=forms.RadioSelect,
-        label="Are these details correct?",
         error_messages={"required": "Confirm your organisation details."},
     )
 
@@ -21,8 +20,9 @@ class ConfirmOrgDetailsForm(forms.Form):
         self.helper = FormHelper()
         self.helper.attrs = {"novalidate": 1}
         self.helper.layout = Layout(
+            HTML.heading("h2", "l", "Are these details correct?"),
             Field.radios(
-                "confirm", legend_size=Size.MEDIUM, legend_tag="h1", inline=True
+                "confirm", legend_size=Size.MEDIUM, legend_tag="h2", inline=True
             ),
             Submit("submit", "Continue"),
         )
