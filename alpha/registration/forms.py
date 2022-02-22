@@ -13,6 +13,7 @@ class ConfirmOrgDetailsForm(forms.Form):
         choices=(("yes", "Yes"), ("no", "No, search again")),
         widget=forms.RadioSelect,
         error_messages={"required": "Confirm your organisation details."},
+        label="Are these details correct?",
     )
 
     def __init__(self, *args, **kwargs):
@@ -20,7 +21,6 @@ class ConfirmOrgDetailsForm(forms.Form):
         self.helper = FormHelper()
         self.helper.attrs = {"novalidate": 1}
         self.helper.layout = Layout(
-            HTML.heading("h2", "l", "Are these details correct?"),
             Field.radios(
                 "confirm", legend_size=Size.MEDIUM, legend_tag="h2", inline=True
             ),
