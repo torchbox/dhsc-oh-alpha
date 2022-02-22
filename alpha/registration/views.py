@@ -1,11 +1,11 @@
 import base64
 import json
 
-from django.conf import settings
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import FormView, TemplateView
 from django_gov_notify.message import NotifyEmailMessage
+from notifications_python_client.errors import HTTPError
 
 from alpha.providers.models import Provider
 from alpha.registration import forms as registration_forms
@@ -137,6 +137,16 @@ class NotEligible(TemplateView):
     template_name = "registration/not_eligible.html"
 
 
+class DoneNoEmail(TemplateView):
+    template_name = "registration/done_no_email.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        password_link = build_password_link(self)
+        context["link"] = password_link
+        return context
+
+
 class Done(TemplateView):
     template_name = "registration/done.html"
 
@@ -155,8 +165,7 @@ class Done(TemplateView):
                 args=(encode_email(email_address),),
             )
         )
-
-        if settings.GOVUK_NOTIFY_API_KEY:
+        try:
             notify_message = NotifyEmailMessage(
                 to=[email_address],
                 template_id=TEMPLATE_ID,
@@ -166,7 +175,13 @@ class Done(TemplateView):
                 },
             )
             notify_message.send()
-        else:
+        except HTTPError as e:
+            print(f"Error occured when sending emails via notify {e}")
+            # Unable to send email, so send the user to a view they can set their password from
+            return redirect(reverse("registration:done_no_email"))
+
+        except Exception as e:
+            print(f"Error occured when sending emails via notify {e}")
             print("email vars:")
             print(
                 json.dumps(
@@ -217,3 +232,13 @@ def get_provider_from_session(request):
         provider_id = registration.get("selected_provider_id", None)
         if provider_id:
             return Provider.objects.get(id=provider_id)
+
+
+def build_password_link(view):
+    email_address = view.request.session["registration"]["person"]["email"]
+    return view.request.build_absolute_uri(
+        reverse(
+            "registration:set_password",
+            args=(encode_email(email_address),),
+        )
+    )
