@@ -1,0 +1,28 @@
+{% extends 'alpha/base_page.html' %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-panel govuk-panel--confirmation">
+                <h1 class="govuk-panel__title">
+                    Application Submitted
+                </h1>
+                <div class="govuk-panel__body">
+                    Your reference number<br><strong>HDJ2123F</strong>
+                </div>
+            </div>
+            <h2 class="govuk-heading-m">Complete your registration as a health provider</h2>
+            <p class="govuk-body">Your registration as an occupational health provider name has been approved</p>
+            <p class="govuk-body">We need you to create a password before you can start using the service to:</p>
+            <p class="govuk-body">
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>submit and manage demographic and employment data about your workforce</li>
+                    <li>aid Government understanding of the occupational health workforce and the issues affecting it</li>
+                    <li>sign up to gain approval to access the occupational health innovation support fund</li>
+                </ul>
+            </p>
+            <p class="govuk-body"><a href="{{ link }}" class="govuk-link">Create password</a></p>
+            <p class="govuk-body"><a href="#" class="govuk-link">What did you think of this service?</a> (takes 30 seconds)</p>
+        </div>
+    </div>
+{% endblock %}

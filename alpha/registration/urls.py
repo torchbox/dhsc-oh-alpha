@@ -69,6 +69,11 @@ urlpatterns = [
         name="done",
     ),
     path(
+        "done_no_email/",
+        views.DoneNoEmail.as_view(),
+        name="done_no_email",
+    ),
+    path(
         "set_password/<str:email>",
         views.SetPassword.as_view(),
         name="set_password",
