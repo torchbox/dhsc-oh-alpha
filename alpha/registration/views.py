@@ -68,7 +68,7 @@ class OrganisationSelectReview(FormView):
         if provider and provider.covers_england:
             return redirect(reverse("registration:person_details_input"))
         else:
-            return redirect(reverse("registration:organisation_select_countries"))
+            return redirect(reverse("registration:not_eligible"))
 
 
 class OrganisationSelectCountries(FormView):

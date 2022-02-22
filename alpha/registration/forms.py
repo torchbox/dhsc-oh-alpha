@@ -39,7 +39,7 @@ class CountriesForm(forms.Form):
     countries = forms.MultipleChoiceField(
         choices=COUNTRIES,
         widget=forms.CheckboxSelectMultiple,
-        label="Where does your organisation provide services?",
+        label="",
         error_messages={"required": "Select at least one country."},
     )
 
