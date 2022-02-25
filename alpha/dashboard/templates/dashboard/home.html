@@ -1,0 +1,151 @@
+{% extends 'alpha/base_page.html' %}
+
+{% block menu %}
+    <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide navigation menu">Menu</button>
+    <nav>
+        <ul id="navigation" class="govuk-header__navigation " aria-label="Navigation menu">
+            <li class="govuk-header__navigation-item">
+                Welcome <strong>{{ user.email }}</strong>
+            </li>
+            <li class="govuk-header__navigation-item">
+                <a class="govuk-header__link" href="#">
+                    Your account
+                </a>
+            </li>
+            <li class="govuk-header__navigation-item">
+                <a class="govuk-header__link" href="#">
+                    Sign out
+                </a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h1 class="govuk-panel__title">
+                {{ workforce }}
+            </h1>
+            <div class="govuk-tabs" data-module="govuk-tabs">
+                <h2 class="govuk-tabs__title">
+                    Contents
+                </h2>
+                <ul class="govuk-tabs__list">
+                    <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+                        <a class="govuk-tabs__tab" href="#org">
+                            Organisation
+                        </a>
+                    </li>
+                    <li class="govuk-tabs__list-item">
+                        <a class="govuk-tabs__tab" href="#workplaces">
+                            Workplaces
+                        </a>
+                    </li>
+                    <li class="govuk-tabs__list-item">
+                        <a class="govuk-tabs__tab" href="#staff">
+                            Staff
+                        </a>
+                    </li>
+                    <li class="govuk-tabs__list-item">
+                        <a class="govuk-tabs__tab" href="#benchmarking">
+                            Benchmarking
+                        </a>
+                    </li>
+                    <li class="govuk-tabs__list-item">
+                        <a class="govuk-tabs__tab" href="#users">
+                            Users
+                        </a>
+                    </li>
+                </ul>
+                <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="org">
+                    <h2 class="govuk-heading-m">Organisation</h2>
+                    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+                </div>
+
+                <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="workplaces">
+                    <h2 class="govuk-heading-m">Workplaces</h2>
+                    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+                </div>
+
+                <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="staff">
+                    <div class="govuk-grid-row">
+                        <div class="govuk-grid-column-two-thirds">
+                            <h2 class="govuk-heading-m">Staff</h2>
+                            <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+                            <div>
+                                <strong class="govuk-tag govuk-!-margin-bottom-2">
+                                    COMPLETED
+                                </strong>
+                            </div>
+                            <ul class="govuk-list">
+                                <li><strong>Unique ID:</strong> Sam Smith</li>
+                                <li><strong>NI number:</strong> EN 90 36 19 D</li>
+                                <li><strong>Record created:</strong> 19 2 2022</li>
+                                <li><strong>Last updated:</strong> 19 2 2022</li>
+                                <li><strong>Questions answered:</strong> 7 of 8</li>
+                                <li><strong>Next review due:</strong> 19 2 2023</li>
+                            </ul>
+                            <button class="govuk-button govuk-!-margin-bottom-2" data-module="govuk-button">
+                                View
+                            </button>
+                            <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+                        </div>
+
+                        <div class="govuk-grid-column-one-third">
+                            <aside class="app-related-items" role="complementary">
+                                <h2 class="govuk-heading-m" id="subsection-title">
+                                    Related Content
+                                </h2>
+                                <nav role="navigation" aria-labelledby="subsection-title">
+                                    <ul class="govuk-list govuk-!-font-size-16">
+                                        <li>
+                                            <a class="govuk-link" href="#">
+                                                Guidance on the occupational health workforce dataset General Data Protection Regulation (GDPR) compliance
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="govuk-link" href="#">
+                                                Further information on the benefits of providing occupational health workforce data
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="govuk-link govuk-!-font-weight-bold" aria-label="View more related content">
+                                                More
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </aside>
+                        </div>
+                    </div>
+                    <div class="govuk-grid-row">
+                        <div class="govuk-grid-column-full">
+                            <h3 class="govuk-heading-s">Add another staff record</h3>
+                            <a href="#" role="button" draggable="false" class="govuk-button govuk-button--start" data-module="govuk-button">
+                                Start now
+                                <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+                                    <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
+                                </svg></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="benchmarking">
+                    <h2 class="govuk-heading-m">Benchmarking</h2>
+                    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+                </div>
+
+                <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="users">
+                    <h2 class="govuk-heading-m">Users</h2>
+                    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+{% endblock %}
