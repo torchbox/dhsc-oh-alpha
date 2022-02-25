@@ -71,7 +71,7 @@ class PersonDetailsForm(forms.Form):
 
     email = forms.CharField(
         label="Email address",
-        help_text="Try to avoid shared email addresses like admin@myworkplace.com",
+        help_text="Avoid shared email addresses like admin@myworkplace.com if possible",
         widget=forms.EmailInput(),
         error_messages={
             "required": "Enter an email address in the correct format, like name@example.com"
@@ -127,7 +127,7 @@ class PostcodeForm(forms.Form):
             HTML.heading("h1", "l", "Find your organisation's address"),
             Fieldset(
                 Field.text("postcode"),
-                legend="We'll use your postcode to find the address.",
+                legend="We'll use your postcode to find your registered business address.",
             ),
             Submit("submit", "Find address"),
         )
@@ -186,7 +186,7 @@ class AdditionalOrgDetailsForm(forms.Form):
     )
     email = forms.CharField(
         label="Main organisation email address",
-        help_text="This should be a shared email like admin@myworkplace.com",
+        help_text="Use a shared email like admin@myworkplace.com if possible.",
         widget=forms.EmailInput(),
         error_messages={
             "required": "Enter an email address in the correct format, like name@example.com"
