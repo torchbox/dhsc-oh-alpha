@@ -127,7 +127,7 @@ class PostcodeForm(forms.Form):
             HTML.heading("h1", "l", "Find your organisation's address"),
             Fieldset(
                 Field.text("postcode"),
-                legend="We'll use your postcode to find yor registered business address.",
+                legend="We'll use your postcode to find your registered business address.",
             ),
             Submit("submit", "Find address"),
         )
