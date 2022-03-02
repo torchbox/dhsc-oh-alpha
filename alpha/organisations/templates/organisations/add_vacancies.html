@@ -9,4 +9,55 @@
             <p class="govuk-body">
                 Add the number of vacancies for each role
             </p>
+
+            {# due to the design, render some headings here #}
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-one-half">
+                    <p class="govuk-body"></p>
+                </div>
+                <div class="govuk-grid-column-one-half">
+                    <p class="govuk-body">Number of vacancies</p>
+                </div>
+            </div>
+
+            <form novalidate="1" method="post">
+                {% csrf_token %}
+                {# begin JS dupe block #}
+                <div class="govuk-grid-row" id="input-block-wrapper">
+                    <div id="input-block">
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-form-group">
+                                <select class="govuk-select" id="role" name="role" class="govuk-grid-column-two-thirds">
+                                    <option disabled selected value> -- select an option -- </option>
+                                    <option value="role-1">Job role 1</option>
+                                    <option value="role-2">Job role 2</option>
+                                    <option value="role-3">Job role 3</option>
+                                    <option value="role-4">Job role 4</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="govuk-grid-column-one-half">
+                            <div class="govuk-form-group">
+                                <input class="govuk-input govuk-input--width-2" id="number" name="number" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="extra-fields"></div>
+                </div>
+                {# end js dupe block #}
+                <p class="govuk-body">
+                    <div onclick="addAnother()" class="govuk-button" data-module="govuk-button">Add another</div>
+                    <input type="submit" name="submit" value="Continue" class="govuk-button" id="submit-id-submit">
+                </p>
+            </form>
+        </div>
+    </div>
+    {{roles}}
+    <script>
+        function addAnother() {
+            const node = document.getElementById("input-block");
+            const clone = node.cloneNode(true);
+            document.getElementById("extra-fields").appendChild(clone);
+        }
+    </script>
 {% endblock %}

@@ -11,6 +11,11 @@ urlpatterns = [
         name="add_vacancies",
     ),
     path(
+        "after_vacancies/",
+        views.AfterVaccancies.as_view(),
+        name="after_vacancies",
+    ),
+    path(
         "staff_per_role/",
         views.StaffPerRole.as_view(),
         name="staff_per_role",
