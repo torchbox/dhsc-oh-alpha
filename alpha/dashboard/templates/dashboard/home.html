@@ -64,23 +64,14 @@
                             <p class="govuk-body">
                                 Submit and manage data about your workplace and the main occupational health services you provide.
                             </p>
-                            <h3 class="govuk-heading-s">Add organisation details</h3>
-                            <p class="govuk-body">
-                                Submit data about your organisation’s size and sector, the services it provides, and the regions of England it covers.
-                            </p>
-                            <p class="govuk-body">
-                                Add information about the:
-                                <ul class="govuk-list govuk-list--bullet">
-                                    <li>size of your organisation within a defined range</li>
-                                    <li>sector your organisation operates in</li>
-                                    <li>main occupational health services provided</li>
-                                    <li>regions of England covered</li>
-                                    <li>current vacancies for occupational health roles</li>
-                                </ul>
-                            </p>
-                            <p class="govuk-body">Takes around XX minutes</p>
+                            {# conditional if org data is added #}
+                            {% if organisation_data %}
+                                {% include "dashboard/includes/organisation_data.html" %}
+                            {% else %}
+                                {% include "dashboard/includes/organisation_empty.html" %}
+                            {% endif %}
+                            {# end conditional #}
 
-                            <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
                         </div>
 
                         <div class="govuk-grid-column-one-third">
