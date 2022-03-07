@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import TemplateView
 
+from alpha.dashboard import urls as dashboard_urls
 from alpha.data_management import urls as data_management_urls
 from alpha.forms import urls as form_urls
 from alpha.home import urls as home_urls
@@ -17,6 +18,7 @@ private_urlpatterns = [
     path("forms/", include(form_urls)),
     path("registration/", include(registration_urls, namespace="registration")),
     path("data/", include(data_management_urls, namespace="data_management")),
+    path("dashboard/", include(dashboard_urls, namespace="dashboard")),
 ]
 
 
