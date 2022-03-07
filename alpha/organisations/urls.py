@@ -30,4 +30,9 @@ urlpatterns = [
         views.Regions.as_view(),
         name="regions",
     ),
+    path(
+        "review/",
+        views.OrganisationDetailsReview.as_view(),
+        name="review",
+    ),
 ]

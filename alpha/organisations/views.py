@@ -32,3 +32,7 @@ class Services(FormView):
 class Regions(FormView):
     template_name = "alpha/forms/generic_form.html"
     form_class = organisation_forms.RegionsForm
+
+
+class OrganisationDetailsReview(TemplateView):
+    template_name = "organisations/review.html"
