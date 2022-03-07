@@ -25,4 +25,9 @@ urlpatterns = [
         views.Services.as_view(),
         name="services",
     ),
+    path(
+        "regions/",
+        views.Regions.as_view(),
+        name="regions",
+    ),
 ]

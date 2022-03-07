@@ -27,3 +27,8 @@ class Sector(FormView):
 class Services(FormView):
     template_name = "alpha/forms/generic_form.html"
     form_class = organisation_forms.ServicesForm
+
+
+class Regions(FormView):
+    template_name = "alpha/forms/generic_form.html"
+    form_class = organisation_forms.RegionsForm

@@ -71,3 +71,39 @@ class ServicesForm(forms.Form):
             Field.checkboxes("services", legend_tag="h1", legend_size=Size.LARGE),
             Submit("submit", "Continue"),
         )
+
+
+class RegionsForm(forms.Form):
+    REGIONS = (
+        Choice("E", "Eastern"),
+        Choice("EM", "East midlands"),
+        Choice("L", "London"),
+        Choice("NE", "North east"),
+        Choice("NW", "North west"),
+        Choice("SE", "South east"),
+        Choice("SW", "South west"),
+        Choice("WM", "West midlands"),
+        Choice("YH", "Yorkshire and the Humber"),
+    )
+
+    regions = forms.MultipleChoiceField(
+        choices=REGIONS,
+        widget=forms.CheckboxSelectMultiple,
+        label="",
+        error_messages={"required": "Select at least one region."},
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.attrs = {"novalidate": 1}
+        self.helper.layout = Layout(
+            HTML.heading(
+                "h1",
+                "l",
+                "Which regions does your organisation provide occupational health services in?",
+            ),
+            HTML.p("Select all options that apply"),
+            Field.checkboxes("regions", legend_tag="h1", legend_size=Size.LARGE),
+            Submit("submit", "Continue"),
+        )
