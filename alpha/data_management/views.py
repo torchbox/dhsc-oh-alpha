@@ -6,7 +6,7 @@ from alpha.data_management import forms as data_management_forms
 
 
 class Upload(FormView):
-    template_name = "registration/generic_form.html"
+    template_name = "alpha/forms/generic_form.html"
     form_class = data_management_forms.DataUploadForm
 
     def get_context_data(self, **kwargs):
