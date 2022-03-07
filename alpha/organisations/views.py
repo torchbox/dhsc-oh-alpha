@@ -22,3 +22,8 @@ class StaffPerRole(TemplateView):
 class Sector(FormView):
     template_name = "alpha/forms/generic_form.html"
     form_class = organisation_forms.SectorForm
+
+
+class Services(FormView):
+    template_name = "alpha/forms/generic_form.html"
+    form_class = organisation_forms.ServicesForm

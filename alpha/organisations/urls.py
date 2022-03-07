@@ -20,4 +20,9 @@ urlpatterns = [
         views.Sector.as_view(),
         name="sector",
     ),
+    path(
+        "services/",
+        views.Services.as_view(),
+        name="services",
+    ),
 ]

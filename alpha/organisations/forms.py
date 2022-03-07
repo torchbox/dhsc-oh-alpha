@@ -17,7 +17,7 @@ class SectorForm(forms.Form):
             "Occupational Health provider embedded within private organisation",
         ),
         Choice("individual", "An individual worker (self employed)"),
-        Choice("other", "Other (please specify"),
+        Choice("other", "Other (please specify)"),
     )
 
     sectors = forms.ChoiceField(
@@ -36,5 +36,38 @@ class SectorForm(forms.Form):
                 "h1", "l", "Which option best describes you or your organisation?"
             ),
             Field.checkboxes("sectors", legend_tag="h1", legend_size=Size.LARGE),
+            Submit("submit", "Continue"),
+        )
+
+
+class ServicesForm(forms.Form):
+    SERVICES = (
+        Choice("screening", "Screening services"),
+        Choice("vaccines", "Vaccines and immunisation"),
+        Choice("injury_rehabilitation", "Injury rehabilitation"),
+        Choice("health_surveillance", "Health surveillance"),
+        Choice("referrals_sickness", "Management referrals, sickness absence"),
+        Choice("other", "Other (please specify)"),
+    )
+
+    services = forms.MultipleChoiceField(
+        choices=SERVICES,
+        widget=forms.CheckboxSelectMultiple,
+        label="",
+        error_messages={"required": "Select at least one service."},
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.attrs = {"novalidate": 1}
+        self.helper.layout = Layout(
+            HTML.heading(
+                "h1",
+                "l",
+                "What occupational health services does your organisation provide?",
+            ),
+            HTML.p("Select all options that apply"),
+            Field.checkboxes("services", legend_tag="h1", legend_size=Size.LARGE),
             Submit("submit", "Continue"),
         )
