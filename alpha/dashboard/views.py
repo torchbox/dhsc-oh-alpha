@@ -15,5 +15,6 @@ class Home(TemplateView):
         org_data = self.request.GET.get("org_data", "")
         if org_data:
             context["organisation_data"] = True
+            context["organisation_data_notification"] = True
 
         return context
