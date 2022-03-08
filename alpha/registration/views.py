@@ -67,7 +67,7 @@ class OrganisationSelectReview(FormView):
 
 
 class OrganisationSelectCountries(FormView):
-    template_name = "registration/generic_form.html"
+    template_name = "alpha/forms/generic_form.html"
     form_class = registration_forms.CountriesForm
 
     def form_valid(self, form):
@@ -77,7 +77,7 @@ class OrganisationSelectCountries(FormView):
 
 
 class OrganisationCreateCountries(FormView):
-    template_name = "registration/generic_form.html"
+    template_name = "alpha/forms/generic_form.html"
     form_class = registration_forms.CountriesForm
 
     def form_valid(self, form):
@@ -87,7 +87,7 @@ class OrganisationCreateCountries(FormView):
 
 
 class OrganisationCreatePostcode(FormView):
-    template_name = "registration/generic_form.html"
+    template_name = "alpha/forms/generic_form.html"
     form_class = registration_forms.PostcodeForm
 
     def form_valid(self, form):
@@ -95,7 +95,7 @@ class OrganisationCreatePostcode(FormView):
 
 
 class OrganisationCreateAddress(FormView):
-    template_name = "registration/generic_form.html"
+    template_name = "alpha/forms/generic_form.html"
     form_class = registration_forms.CreateAddressForm
 
     def form_valid(self, form):
@@ -103,7 +103,7 @@ class OrganisationCreateAddress(FormView):
 
 
 class OrganisationCreateDetails(FormView):
-    template_name = "registration/generic_form.html"
+    template_name = "alpha/forms/generic_form.html"
     form_class = registration_forms.AdditionalOrgDetailsForm
 
     def form_valid(self, form):
@@ -111,7 +111,7 @@ class OrganisationCreateDetails(FormView):
 
 
 class PersonDetailsInput(FormView):
-    template_name = "registration/generic_form.html"
+    template_name = "alpha/forms/generic_form.html"
     form_class = registration_forms.PersonDetailsForm
 
     def form_valid(self, form):
@@ -201,7 +201,7 @@ class Done(TemplateView):
 
 
 class SetPassword(FormView):
-    template_name = "registration/generic_form.html"
+    template_name = "alpha/forms/generic_form.html"
     form_class = registration_forms.SetPasswordForm
 
     def get_context_data(self, **kwargs):
