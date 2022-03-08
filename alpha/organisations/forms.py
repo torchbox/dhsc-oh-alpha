@@ -24,7 +24,7 @@ class SectorForm(forms.Form):
         choices=SECTORS,
         widget=forms.RadioSelect,
         label="",
-        error_messages={"required": "Select at least one sector."},
+        error_messages={"required": "Confirm your sector details."},
     )
 
     def __init__(self, *args, **kwargs):
