@@ -23,7 +23,7 @@ class SectorForm(forms.Form):
     sectors = forms.ChoiceField(
         choices=SECTORS,
         widget=forms.RadioSelect,
-        label="",
+        label="Which option best describes you or your organisation?",
         error_messages={"required": "Confirm your sector details."},
     )
 
@@ -32,9 +32,6 @@ class SectorForm(forms.Form):
         self.helper = FormHelper()
         self.helper.attrs = {"novalidate": 1}
         self.helper.layout = Layout(
-            HTML.heading(
-                "h1", "l", "Which option best describes you or your organisation?"
-            ),
             Field.checkboxes("sectors", legend_tag="h1", legend_size=Size.LARGE),
             Submit("submit", "Continue"),
         )
@@ -53,7 +50,7 @@ class ServicesForm(forms.Form):
     services = forms.MultipleChoiceField(
         choices=SERVICES,
         widget=forms.CheckboxSelectMultiple,
-        label="",
+        label="What occupational health services does your organisation provide?",
         error_messages={"required": "Select at least one service."},
     )
 
@@ -62,11 +59,6 @@ class ServicesForm(forms.Form):
         self.helper = FormHelper()
         self.helper.attrs = {"novalidate": 1}
         self.helper.layout = Layout(
-            HTML.heading(
-                "h1",
-                "l",
-                "What occupational health services does your organisation provide?",
-            ),
             HTML.p("Select all options that apply"),
             Field.checkboxes("services", legend_tag="h1", legend_size=Size.LARGE),
             Submit("submit", "Continue"),
@@ -89,7 +81,7 @@ class RegionsForm(forms.Form):
     regions = forms.MultipleChoiceField(
         choices=REGIONS,
         widget=forms.CheckboxSelectMultiple,
-        label="",
+        label="Which regions does your organisation provide occupational health services in?",
         error_messages={"required": "Select at least one region."},
     )
 
@@ -98,11 +90,6 @@ class RegionsForm(forms.Form):
         self.helper = FormHelper()
         self.helper.attrs = {"novalidate": 1}
         self.helper.layout = Layout(
-            HTML.heading(
-                "h1",
-                "l",
-                "Which regions does your organisation provide occupational health services in?",
-            ),
             HTML.p("Select all options that apply"),
             Field.checkboxes("regions", legend_tag="h1", legend_size=Size.LARGE),
             Submit("submit", "Continue"),
