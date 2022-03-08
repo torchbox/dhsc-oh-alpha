@@ -6,58 +6,97 @@
             <h1 class="govuk-heading-l">
                 How many vacancies does your organisation have for the following roles? (optional)
             </h1>
+
+            {% if error %}
+                <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="govuk-error-summary">
+                    <h2 class="govuk-error-summary__title" id="error-summary-title">
+                        There is a problem
+                    </h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li>
+                                <a href="#input-table">Please check your inputs are correct.
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+
+
+
             <p class="govuk-body">
                 Add the number of vacancies for each role
             </p>
 
-            {# due to the design, render some headings here #}
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-one-half">
-                    <p class="govuk-body"></p>
-                </div>
-                <div class="govuk-grid-column-one-half">
-                    <p class="govuk-body">Number of vacancies</p>
-                </div>
-            </div>
-
             <form novalidate="1" method="post">
                 {% csrf_token %}
                 {# begin JS dupe block #}
-                <div class="govuk-grid-row" id="input-block-wrapper">
-                    <div id="input-block">
-                        <div class="govuk-grid-column-one-half">
-                            <div class="govuk-form-group">
-                                <select class="govuk-select" id="role" name="role" class="govuk-grid-column-two-thirds">
-                                    <option disabled selected value> -- select an option -- </option>
-                                    <option value="role-1">Job role 1</option>
-                                    <option value="role-2">Job role 2</option>
-                                    <option value="role-3">Job role 3</option>
-                                    <option value="role-4">Job role 4</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="govuk-grid-column-one-half">
-                            <div class="govuk-form-group">
-                                <input class="govuk-input govuk-input--width-2" id="number" name="number" type="text">
-                            </div>
-                        </div>
-                    </div>
-                    <div id="extra-fields"></div>
-                </div>
-                {# end js dupe block #}
-                <p class="govuk-body">
-                    <div onclick="addAnother()" class="govuk-button" data-module="govuk-button">Add another</div>
+                <div class="govuk-grid-row">
+                    <table class="govuk-table">
+                        <caption class="govuk-table__caption govuk-table__caption--m">Add the number of vacancies for each role</caption>
+                        <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                                <th scope="col" class="govuk-table__header">Role</th>
+                                <th scope="col" class="govuk-table__header">Number of vacancies</th>
+                                <th scope="col" class="govuk-table__header">Actions</th>
+                                <th scope="col" class="govuk-table__header"></th>
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body" id="input-table">
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header">
+                                    <select class="govuk-select" id="role_1" name="role_1" class="govuk-grid-column-two-thirds">
+                                        <option disabled selected value> -- select an option -- </option>
+                                        <option value="role-1">Job role 1</option>
+                                        <option value="role-2">Job role 2</option>
+                                        <option value="role-3">Job role 3</option>
+                                        <option value="role-4">Job role 4</option>
+                                    </select>
+                                </th>
+                                <td class="govuk-table__cell">
+                                    <input class="govuk-input govuk-input--width-2" id="number_1" name="number_1" type="text" value="">
+                                </td>
+                                <td class="govuk-table__cell">
+                                    {% comment %} <div tabindex="0" role="button" onclick="addRow()" class="govuk-link">Add another</div> {% endcomment %}
+                                    <button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="addRow()" type="button">
+                                        Add another
+                                    </button>
+                                </td>
+                                <td class="govuk-table__cell">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <input type="submit" name="submit" value="Continue" class="govuk-button" id="submit-id-submit">
-                </p>
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
-    {{roles}}
-    <script>
-        function addAnother() {
-            const node = document.getElementById("input-block");
-            const clone = node.cloneNode(true);
-            document.getElementById("extra-fields").appendChild(clone);
-        }
-    </script>
+        {{roles}}
+        <script>
+            var count = 1
+            function addRow() {
+                count++
+                console.log(count)
+
+                var table = document.getElementById("input-table");
+                var row = table.insertRow(-1);
+                row.className = "govuk-table__row"
+                var cell1 = row.insertCell(0);
+                cell1.className = "govuk-table__cell"
+                var cell2 = row.insertCell(1);
+                cell2.className = "govuk-table__cell"
+                var cell3 = row.insertCell(2);
+                cell3.className = "govuk-table__cell"
+                var cell4 = row.insertCell(3);
+                cell4.className = "govuk-table__cell"
+
+                cell1.innerHTML = `<th scope="row" class="govuk-table__header"><select class="govuk-select" id="role_${count}" name="role_${count}" class="govuk-grid-column-two-thirds"><option disabled selected value> -- select an option -- </option><option value="role-1">Job role 1</option><option value="role-2">Job role 2</option><option value="role-3">Job role 3</option><option value="role-4">Job role 4</option></select></th>`;
+                cell2.innerHTML = `<input class="govuk-input govuk-input--width-2" id="number_${count}" name="number_${count}" type="text" value="">`;
+                cell3.innerHTML = '<button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="addRow()" type="button">Add another</button>'
+                cell4.innerHTML = '<button class="govuk-button govuk-button--warning" data-module="govuk-button" onclick="return this.parentNode.parentNode.remove();" type="button">delete</button>'
+                return
+            }
+
+        </script>
 {% endblock %}

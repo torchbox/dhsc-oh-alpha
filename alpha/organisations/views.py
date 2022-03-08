@@ -1,3 +1,5 @@
+import re
+
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import FormView, TemplateView
@@ -14,13 +16,29 @@ class AddVaccancies(TemplateView):
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+
         # Get values here and store in session by lazily organizing the post data
         data = []
-        roles = self.request.POST.getlist("role")
-        numbers = self.request.POST.getlist("number")
+        post_data = dict(self.request.POST)
+
+        roles = []
+        numbers = []
+        for i in post_data:
+            if re.findall(r"role_", i):
+                roles.append(post_data[i])
+            if re.findall(r"number_", i):
+                numbers.append(post_data[i])
+
+        # make a template friendly list of the values submitted
         for i, v in enumerate(roles):
+            if type(numbers[i]) != int:
+                context["error"] = True
+                return self.render_to_response(context)
+
             data.append([v, numbers[i]])
-        # Add roles to the seesion
+
+        # Add roles to the sesion
         request.session["organisation"]["roles"] = data
         # Just reload this view so we can see it's worked
         return redirect(reverse("organisations:after_vacancies"))
