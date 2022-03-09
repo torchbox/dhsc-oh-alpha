@@ -15,6 +15,16 @@ class AddVaccancies(TemplateView):
         self.request.session["organisation"] = {}
         return super().get(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["role_options"] = [
+            ("role-1", "role 1"),
+            ("role-2", "role 2"),
+            ("role-3", "role 3"),
+            ("role-4", "role 4"),
+        ]
+        return context
+
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
 
@@ -32,11 +42,16 @@ class AddVaccancies(TemplateView):
 
         # make a template friendly list of the values submitted
         for i, v in enumerate(roles):
-            if type(numbers[i]) != int:
-                context["error"] = True
-                return self.render_to_response(context)
-
             data.append([v, numbers[i]])
+
+        # Number validation
+        for i in data:
+            try:
+                int(i[1][0])
+            except ValueError:
+                context["error"] = True
+                context["data"] = data
+                return self.render_to_response(context)
 
         # Add roles to the sesion
         request.session["organisation"]["roles"] = data

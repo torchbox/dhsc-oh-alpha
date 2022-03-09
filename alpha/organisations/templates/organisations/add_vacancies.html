@@ -26,53 +26,68 @@
 
 
             <p class="govuk-body">
-                Add the number of vacancies for each role
+                We will only use this data in a summary form for statistical analysis.
             </p>
-
             <form novalidate="1" method="post">
                 {% csrf_token %}
                 {# begin JS dupe block #}
-                <div class="govuk-grid-row">
-                    <table class="govuk-table">
-                        <caption class="govuk-table__caption govuk-table__caption--m">Add the number of vacancies for each role</caption>
-                        <thead class="govuk-table__head">
-                            <tr class="govuk-table__row">
-                                <th scope="col" class="govuk-table__header">Role</th>
-                                <th scope="col" class="govuk-table__header">Number of vacancies</th>
-                                <th scope="col" class="govuk-table__header">Actions</th>
-                                <th scope="col" class="govuk-table__header"></th>
-                            </tr>
-                        </thead>
-                        <tbody class="govuk-table__body" id="input-table">
+                <table class="govuk-table">
+                    <caption class="govuk-table__caption govuk-table__caption--s">Add the number of vacancies for each role</caption>
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">Role</th>
+                            <th scope="col" class="govuk-table__header">Number</th>
+                            <th scope="col" class="govuk-table__header">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body" id="input-table">
+                        {% if data %}
+                            {% for value in data %}
+                                <tr class="govuk-table__row">
+                                    <th scope="row" class="govuk-table__header">
+                                        <select class="govuk-select" id="role_1" name="role_1" class="govuk-grid-column-two-thirds">
+                                            <option disabled value> -- select an option -- </option>
+                                            {% for role in role_options %}
+                                                <option value="{{ role.0 }}" {% if role.0 == value.0.0 %}selected{% endif %}>
+                                                    {{ role.1 }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </th>
+                                    <td class="govuk-table__cell">
+                                        <input class="govuk-input govuk-input--width-2" id="number_1" name="number_1" type="text" value="{{ value.1.0 }}">
+                                    </td>
+                                    <td class="govuk-table__cell">
+                                        <button class="govuk-button govuk-button--warning" data-module="govuk-button" onclick="return this.parentNode.parentNode.remove();" type="button">delete</button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
                             <tr class="govuk-table__row">
                                 <th scope="row" class="govuk-table__header">
                                     <select class="govuk-select" id="role_1" name="role_1" class="govuk-grid-column-two-thirds">
                                         <option disabled selected value> -- select an option -- </option>
-                                        <option value="role-1">Job role 1</option>
-                                        <option value="role-2">Job role 2</option>
-                                        <option value="role-3">Job role 3</option>
-                                        <option value="role-4">Job role 4</option>
+                                        {% for role in role_options %}
+                                            <option value="{{ role.0 }}">{{ role.1 }}</option>
+                                        {% endfor %}
                                     </select>
                                 </th>
                                 <td class="govuk-table__cell">
                                     <input class="govuk-input govuk-input--width-2" id="number_1" name="number_1" type="text" value="">
                                 </td>
                                 <td class="govuk-table__cell">
-                                    {% comment %} <div tabindex="0" role="button" onclick="addRow()" class="govuk-link">Add another</div> {% endcomment %}
-                                    <button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="addRow()" type="button">
-                                        Add another
-                                    </button>
-                                </td>
-                                <td class="govuk-table__cell">
                                 </td>
                             </tr>
-                        </tbody>
-                    </table>
-                    <input type="submit" name="submit" value="Continue" class="govuk-button" id="submit-id-submit">
-                </form>
-            </div>
+                        {% endif %}
+                    </tbody>
+                </table>
+                <button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="addRow()" type="button">
+                    Add another
+                </button>
+                <input type="submit" name="submit" value="Continue" class="govuk-button" id="submit-id-submit">
+            </form>
+
         </div>
-        {{roles}}
         <script>
             var count = 1
             function addRow() {
@@ -88,13 +103,10 @@
                 cell2.className = "govuk-table__cell"
                 var cell3 = row.insertCell(2);
                 cell3.className = "govuk-table__cell"
-                var cell4 = row.insertCell(3);
-                cell4.className = "govuk-table__cell"
 
-                cell1.innerHTML = `<th scope="row" class="govuk-table__header"><select class="govuk-select" id="role_${count}" name="role_${count}" class="govuk-grid-column-two-thirds"><option disabled selected value> -- select an option -- </option><option value="role-1">Job role 1</option><option value="role-2">Job role 2</option><option value="role-3">Job role 3</option><option value="role-4">Job role 4</option></select></th>`;
+                cell1.innerHTML = `<th scope="row" class="govuk-table__header"><select class="govuk-select" id="role_${count}" name="role_${count}" class="govuk-grid-column-two-thirds"><option disabled selected value> -- select an option -- </option><option value="role-1">role 1</option><option value="role-2">role 2</option><option value="role-3">role 3</option><option value="role-4">role 4</option></select></th>`;
                 cell2.innerHTML = `<input class="govuk-input govuk-input--width-2" id="number_${count}" name="number_${count}" type="text" value="">`;
-                cell3.innerHTML = '<button class="govuk-button govuk-button--secondary" data-module="govuk-button" onclick="addRow()" type="button">Add another</button>'
-                cell4.innerHTML = '<button class="govuk-button govuk-button--warning" data-module="govuk-button" onclick="return this.parentNode.parentNode.remove();" type="button">delete</button>'
+                cell3.innerHTML = '<button class="govuk-button govuk-button--warning" data-module="govuk-button" onclick="return this.parentNode.parentNode.remove();" type="button">delete</button>'
                 return
             }
 
