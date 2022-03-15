@@ -3,22 +3,39 @@ from crispy_forms_gds.helper import FormHelper
 from crispy_forms_gds.layout import HTML, Field, Layout, Size, Submit
 from django import forms
 
+SECTORS = {
+    "nhs_oh": "NHS Trust Occupational Health service",
+    "oh_private": "Occupational Health provider to private service",
+    "embeded_non_nhs": "Occupational Health provider embedded within a non NHS public servivce (e.g military)",
+    "embeded_private": "Occupational Health provider embedded within private organisation",
+    "individual": "An individual worker (self employed)",
+    "other": "Other (please specify)",
+}
+
+SERVICES = {
+    "screening": "Screening services",
+    "vaccines": "Vaccines and immunisation",
+    "injury_rehabilitation": "Injury rehabilitation",
+    "health_surveillance": "Health surveillance",
+    "referrals_sickness": "Management referrals, sickness absence",
+    "other": "Other (please specify)",
+}
+
+REGIONS = {
+    "E": "Eastern",
+    "EM": "East midlands",
+    "L": "London",
+    "NE": "North east",
+    "NW": "North west",
+    "SE": "South east",
+    "SW": "South west",
+    "WM": "West midlands",
+    "YH": "Yorkshire and the Humber",
+}
+
 
 class SectorForm(forms.Form):
-    SECTORS = (
-        Choice("nhs_oh", "NHS Trust Occupational Health service"),
-        Choice("oh_private", "Occupational Health provider to private service"),
-        Choice(
-            "embeded_non_nhs",
-            "Occupational Health provider embedded within a non NHS public servivce (e.g military)",
-        ),
-        Choice(
-            "embeded_private",
-            "Occupational Health provider embedded within private organisation",
-        ),
-        Choice("individual", "An individual worker (self employed)"),
-        Choice("other", "Other (please specify)"),
-    )
+    SECTORS = (Choice(i, SECTORS[i]) for i in SECTORS)
 
     sectors = forms.ChoiceField(
         choices=SECTORS,
@@ -38,14 +55,7 @@ class SectorForm(forms.Form):
 
 
 class ServicesForm(forms.Form):
-    SERVICES = (
-        Choice("screening", "Screening services"),
-        Choice("vaccines", "Vaccines and immunisation"),
-        Choice("injury_rehabilitation", "Injury rehabilitation"),
-        Choice("health_surveillance", "Health surveillance"),
-        Choice("referrals_sickness", "Management referrals, sickness absence"),
-        Choice("other", "Other (please specify)"),
-    )
+    SERVICES = (Choice(i, SERVICES[i]) for i in SERVICES)
 
     services = forms.MultipleChoiceField(
         choices=SERVICES,
@@ -66,17 +76,7 @@ class ServicesForm(forms.Form):
 
 
 class RegionsForm(forms.Form):
-    REGIONS = (
-        Choice("E", "Eastern"),
-        Choice("EM", "East midlands"),
-        Choice("L", "London"),
-        Choice("NE", "North east"),
-        Choice("NW", "North west"),
-        Choice("SE", "South east"),
-        Choice("SW", "South west"),
-        Choice("WM", "West midlands"),
-        Choice("YH", "Yorkshire and the Humber"),
-    )
+    REGIONS = (Choice(i, REGIONS[i]) for i in REGIONS)
 
     regions = forms.MultipleChoiceField(
         choices=REGIONS,

@@ -15,11 +15,9 @@
                     </dt>
                     <dd class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li>Clinical psychologist with OH specialism (3)</li>
-                            <li>Doctor with other OH qualifications (1)</li>
-                            <li>Nurse registered with OH specialism (5)</li>
-                            <li>Nurse training towards OH specialism (3)</li>
-                            <li>Nurse with other OH qualifications (2)</li>
+                            {% for role in organisation.employed_roles %}
+                                <li>{{ role.0.0 }} ({{ role.1.0 }})</li>
+                            {% endfor %}
                         </ul>
                     </dd>
                     <dd class="govuk-summary-list__actions">
@@ -33,7 +31,11 @@
                         How many vacancies does your organisation have for the following roles? (optional)
                     </dt>
                     <dd class="govuk-summary-list__value">
-                        Clinical psychologist with OH specialism (1)
+                        <ul class="govuk-list">
+                            {% for role in organisation.vacancies %}
+                                <li>{{ role.0.0 }} ({{ role.1.0 }})</li>
+                            {% endfor %}
+                        </ul>
                     </dd>
                     <dd class="govuk-summary-list__actions">
                         <a class="govuk-link" href="#">
@@ -46,7 +48,7 @@
                         Which option best describes you or your organisation?
                     </dt>
                     <dd class="govuk-summary-list__value">
-                        Occupational Health provider embedded within private organisation
+                        {{ organisation.sector }}
                     </dd>
                     <dd class="govuk-summary-list__actions">
                         <a class="govuk-link" href="#">
@@ -60,9 +62,9 @@
                     </dt>
                     <dd class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li>Screening services</li>
-                            <li>Injury rehabilitation</li>
-                            <li>Management referrals, sickness absence</li>
+                            {% for service in organisation.services %}
+                                <li>{{ service }}</li>
+                            {% endfor %}
                         </ul>
                     </dd>
                     <dd class="govuk-summary-list__actions">
@@ -77,11 +79,9 @@
                     </dt>
                     <dd class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            <li>Eastern</li>
-                            <li>East Midlands</li>
-                            <li>London</li>
-                            <li>South East</li>
-                            <li>South West</li>
+                            {% for region in organisation.regions %}
+                                <li>{{ region}}</li>
+                            {% endfor %}
                             <ul>
                             </dd>
                             <dd class="govuk-summary-list__actions">
@@ -96,5 +96,4 @@
                         Accept and continue
                     </a>
                 </div>
-
 {% endblock %}
