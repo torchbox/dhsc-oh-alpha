@@ -21,7 +21,6 @@ class AddVaccancies(TemplateView):
         return context
 
     def get_form_data(self):
-        # Get values here and store in session by lazily organizing the post data
         data = []
         post_data = dict(self.request.POST)
 
@@ -29,13 +28,15 @@ class AddVaccancies(TemplateView):
         numbers = []
         for i in post_data:
             if re.findall(r"role_", i):
-                roles.append(post_data[i])
+                roles.append(post_data[i][0])
             if re.findall(r"number_", i):
-                numbers.append(post_data[i])
+                numbers.append(post_data[i][0])
 
         # make a template friendly list of the values submitted
         for i, v in enumerate(roles):
             data.append([v, numbers[i]])
+
+        # EG [['role-2', '8'], ['role-3', '10']]
         return data
 
     def post(self, request, *args, **kwargs):
@@ -44,7 +45,7 @@ class AddVaccancies(TemplateView):
         data = self.get_form_data()
         for i in data:
             try:
-                int(i[1][0])
+                int(i[1])
             except ValueError:
                 context["error"] = True
                 context["data"] = data
@@ -69,7 +70,7 @@ class StaffPerRole(AddVaccancies):
         data = self.get_form_data()
         for i in data:
             try:
-                int(i[1][0])
+                int(i[1])
             except ValueError:
                 context["error"] = True
                 context["data"] = data
