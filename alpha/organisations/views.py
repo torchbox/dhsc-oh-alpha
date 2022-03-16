@@ -33,10 +33,10 @@ class AddVaccancies(TemplateView):
                 numbers.append(post_data[i][0])
 
         # make a template friendly list of the values submitted
+        # EG [['role-2', '8'], ['role-3', '10']]
         for i, v in enumerate(roles):
             data.append([v, numbers[i]])
 
-        # EG [['role-2', '8'], ['role-3', '10']]
         return data
 
     def post(self, request, *args, **kwargs):
@@ -51,7 +51,7 @@ class AddVaccancies(TemplateView):
                 context["data"] = data
                 return self.render_to_response(context)
 
-        # Add roles to the sesion
+        # Add vacancies to the sesion
         request.session["organisation"]["vacancies"] = data
         return redirect(reverse("organisations:sector"))
 
@@ -60,7 +60,6 @@ class StaffPerRole(AddVaccancies):
     template_name = "organisations/staff_per_role.html"
 
     def get(self, request, *args, **kwargs):
-        # This will be set in a simalr way to the preamble so will shift from here
         self.request.session["organisation"] = {}
         return super().get(request, *args, **kwargs)
 
@@ -76,9 +75,8 @@ class StaffPerRole(AddVaccancies):
                 context["data"] = data
                 return self.render_to_response(context)
 
-        # Add roles to the sesion
+        # Add employed_roles to the sesion
         request.session["organisation"]["employed_roles"] = data
-        # Just reload this view so we can see it's worked
         return redirect(reverse("organisations:add_vacancies"))
 
 

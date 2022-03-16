@@ -45,7 +45,7 @@
                             {% for value in data %}
                                 <tr class="govuk-table__row">
                                     <td scope="row" class="govuk-table__cell">
-                                        <select class="govuk-select inline-select" id="role_1" name="role_1">
+                                        <select class="govuk-select inline-select" id="role_{{ forloop.counter }}" name="role_{{ forloop.counter }}">
                                             <option disabled value> -- select an option -- </option>
                                             {% for role in role_options %}
                                                 <option value="{{ role.0 }}" {% if role.0 == value.0 %}selected{% endif %}>
@@ -55,7 +55,7 @@
                                         </select>
                                     </td>
                                     <td class="govuk-table__cell">
-                                        <input class="govuk-input govuk-input--width-2" id="number_1" name="number_1" type="text" value="{{ value.1 }}">
+                                        <input class="govuk-input govuk-input--width-2" id="number_{{ forloop.counter }}" name="number_{{ forloop.counter }}" type="text" value="{{ value.1 }}">
                                     </td>
                                     <td class="govuk-table__cell">
                                         <button class="govuk-button govuk-button--warning inline-button" data-module="govuk-button" onclick="return this.parentNode.parentNode.remove();" type="button">delete</button>
@@ -107,9 +107,12 @@
         </div>
         <script>
             var count = 1
+            var rows = document.getElementById("input-table");
+            count = rows.children.length
+
             function addRow() {
+
                 count++
-                console.log(count)
 
                 var table = document.getElementById("input-table");
                 var row = table.insertRow(-1);
