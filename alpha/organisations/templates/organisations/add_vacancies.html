@@ -46,9 +46,9 @@
                                     <td scope="row" class="govuk-table__cell">
                                         <select class="govuk-select inline-select" id="role_{{ forloop.counter }}" name="role_{{ forloop.counter }}">
                                             <option disabled value> -- select an option -- </option>
-                                            {% for role in role_options %}
-                                                <option value="{{ role.0 }}" {% if role.0 == value.0 %}selected{% endif %}>
-                                                    {{ role.1 }}
+                                            {% for role, label in role_options.items %}
+                                                <option value="{{ role }}" {% if role == value.0 %}selected{% endif %}>
+                                                    {{ label }}
                                                 </option>
                                             {% endfor %}
                                         </select>
@@ -66,8 +66,8 @@
                                 <td scope="row" class="govuk-table__cell">
                                     <select class="govuk-select inline-select" id="role_1" name="role_1">
                                         <option disabled selected value> -- select an option -- </option>
-                                        {% for role in role_options %}
-                                            <option value="{{ role.0 }}">{{ role.1 }}</option>
+                                        {% for role, label in role_options.items %}
+                                            <option value="{{ role }}">{{ label }}</option>
                                         {% endfor %}
                                     </select>
                                 </td>
@@ -101,6 +101,26 @@
         <script>
             var rows = document.getElementById("input-table");
             var count = rows.children.length
+            var roles = [
+                'Doctor',
+                'Doctor with occupational medicine specialty training',
+                'Doctor in occupational medicine specialty training',
+                'Doctor with a different OH qualification',
+                'Doctor in training towards a different OH qualification',
+                'Doctor with other qualification',
+                'Nurse',
+                'Nurse with specialist community public health nursing (SCPHN) OH qualification',
+                'Nurse training towards SCPHN OH qualification',
+                'Nurse with other OH qualification',
+                'Nurse without OH qualifications',
+                'OH Technician',
+                'Case worker',
+                'Counsellor',
+                'Physiotherapist',
+                'Psychologist',
+                'Occupational therapist',
+                'Health and wellbeing specialist',
+            ];
 
             function addRow() {
 
@@ -116,9 +136,19 @@
                 var cell3 = row.insertCell(2);
                 cell3.className = "govuk-table__cell"
 
-                cell1.innerHTML = `<th scope="row" class="govuk-table__header"><select class="govuk-select inline-select" id="role_${count}" name="role_${count}"><option disabled selected value> -- select an option -- </option><option value="role-1">role 1</option><option value="role-2">role 2</option><option value="role-3">role 3</option><option value="role-4">role 4</option></select></th>`;
+                var role_options = ''
+                for (let i = 0; i < roles.length; i++) {
+                    role_options += `<option value="role_${i+1}">${roles[i]}</option>`
+                }
+
+                cell1.innerHTML = `<th scope="row" class="govuk-table__header"><select class="govuk-select inline-select" id="role_${count}" name="role_${count}"><option disabled selected value> -- select an option -- </option>${role_options}</select></th>`
+
                 cell2.innerHTML = `<input class="govuk-input govuk-input--width-2" id="number_${count}" name="number_${count}" type="text" value="">`;
                 cell3.innerHTML = '<button class="govuk-button govuk-button--warning inline-button" data-module="govuk-button" onclick="return this.parentNode.parentNode.remove();" type="button">delete</button>'
+
+
+
+
                 return
             }
 

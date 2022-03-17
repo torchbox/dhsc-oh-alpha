@@ -15,8 +15,8 @@
                     </dt>
                     <dd class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            {% for role, number in organisation.employed_roles %}
-                                <li>{{role}} ({{number}})</li>
+                            {% for role, number, label in organisation.employed_roles %}
+                                <li>{{label}} ({{number}})</li>
                             {% endfor %}
                         </ul>
                     </dd>
@@ -32,8 +32,8 @@
                     </dt>
                     <dd class="govuk-summary-list__value">
                         <ul class="govuk-list">
-                            {% for role, number in organisation.vacancies %}
-                                <li>{{role}} ({{number}})</li>
+                            {% for role, number, label in organisation.vacancies %}
+                                <li>{{label}} ({{number}})</li>
                             {% endfor %}
                         </ul>
                     </dd>

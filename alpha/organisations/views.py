@@ -6,18 +6,34 @@ from django.views.generic import FormView, TemplateView
 
 from alpha.organisations import forms as organisation_forms
 
+ROLES = {
+    "role_1": "Doctor",
+    "role_2": "Doctor with occupational medicine specialty training",
+    "role_3": "Doctor in occupational medicine specialty training",
+    "role_4": "Doctor with a different OH qualification",
+    "role_5": "Doctor in training towards a different OH qualification",
+    "role_6": "Doctor with other qualification",
+    "role_7": "Nurse",
+    "role_8": "Nurse with specialist community public health nursing (SCPHN) OH qualification",
+    "role_9": "Nurse training towards SCPHN OH qualification",
+    "role_10": "Nurse with other OH qualification",
+    "role_11": "Nurse without OH qualifications",
+    "role_12": "OH Technician",
+    "role_13": "Case worker",
+    "role_14": "Counsellor",
+    "role_15": "Physiotherapist",
+    "role_16": "Psychologist",
+    "role_17": "Occupational therapist",
+    "role_18": "Health and wellbeing specialist",
+}
+
 
 class AddVaccancies(TemplateView):
     template_name = "organisations/add_vacancies.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["role_options"] = [
-            ("role-1", "role 1"),
-            ("role-2", "role 2"),
-            ("role-3", "role 3"),
-            ("role-4", "role 4"),
-        ]
+        context["role_options"] = ROLES
         return context
 
     def get_form_data(self):
@@ -26,6 +42,7 @@ class AddVaccancies(TemplateView):
 
         roles = []
         numbers = []
+        print(post_data)
         for i in post_data:
             if re.findall(r"role_", i):
                 roles.append(post_data[i][0])
@@ -33,9 +50,8 @@ class AddVaccancies(TemplateView):
                 numbers.append(post_data[i][0])
 
         # make a template friendly list of the values submitted
-        # EG [['role-2', '8'], ['role-3', '10']]
         for i, v in enumerate(roles):
-            data.append([v, numbers[i]])
+            data.append([v, numbers[i], ROLES[v]])
 
         return data
 
