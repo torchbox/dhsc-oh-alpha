@@ -6,14 +6,14 @@ app_name = "organisations"
 
 urlpatterns = [
     path(
-        "add_vacancies/",
-        views.AddVaccancies.as_view(),
-        name="add_vacancies",
-    ),
-    path(
         "staff_per_role/",
         views.StaffPerRole.as_view(),
         name="staff_per_role",
+    ),
+    path(
+        "add_vacancies/",
+        views.AddVaccancies.as_view(),
+        name="add_vacancies",
     ),
     path(
         "sector/",

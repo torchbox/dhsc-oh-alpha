@@ -6,7 +6,163 @@
             <h1 class="govuk-heading-l">
                 How many vacancies does your organisation have for the following roles? (optional)
             </h1>
+
+            {% if error %}
+                <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="govuk-error-summary">
+                    <h2 class="govuk-error-summary__title" id="error-summary-title">
+                        There is a problem
+                    </h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li>
+                                <a href="#input-table">Please check your inputs are correct.
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+
+
+
             <p class="govuk-body">
-                Add the number of vacancies for each role
+                We will only use this data in a summary form for statistical analysis.
             </p>
+            <form novalidate="1" method="post">
+                {% csrf_token %}
+                <table class="govuk-table">
+                    <caption class="govuk-table__caption govuk-table__caption--s">Add the number of vacancies for each role</caption>
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">Role</th>
+                            <th scope="col" class="govuk-table__header">Number</th>
+                            <th scope="col" class="govuk-table__header">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body" id="input-table">
+                        {% if data %}
+                            {% for value in data %}
+                                <tr class="govuk-table__row">
+                                    <td scope="row" class="govuk-table__cell">
+                                        <select class="govuk-select inline-select" id="role_{{ forloop.counter }}" name="role_{{ forloop.counter }}">
+                                            <option disabled value> -- select an option -- </option>
+                                            {% for role, label in role_options.items %}
+                                                <option value="{{ role }}" {% if role == value.0 %}selected{% endif %}>
+                                                    {{ label }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+                                    <td class="govuk-table__cell">
+                                        <input class="govuk-input govuk-input--width-2" id="number_{{ forloop.counter }}" name="number_{{ forloop.counter }}" type="text" value="{{ value.1 }}">
+                                    </td>
+                                    <td class="govuk-table__cell">
+                                        <button class="govuk-button govuk-button--warning inline-button" data-module="govuk-button" onclick="return this.parentNode.parentNode.remove();" type="button">delete</button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr class="govuk-table__row">
+                                <td scope="row" class="govuk-table__cell">
+                                    <select class="govuk-select inline-select" id="role_1" name="role_1">
+                                        <option disabled selected value> -- select an option -- </option>
+                                        {% for role, label in role_options.items %}
+                                            <option value="{{ role }}">{{ label }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                                <td class="govuk-table__cell">
+                                    <input class="govuk-input govuk-input--width-2" id="number_1" name="number_1" type="text" value="">
+                                </td>
+                                <td class="govuk-table__cell">
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+                <button class="govuk-button govuk-button--secondary govuk-!-margin-bottom-9" data-module="govuk-button" onclick="addRow()" type="button">
+                    Add another
+                </button>
+
+                <div class="govuk-radios govuk-!-margin-bottom-9" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="skip-1" name="skip" type="radio" value="no_vacancies">
+                        <label class="govuk-label govuk-radios__label" for="skip-1">
+                            There are no staff vacancies
+                        </label>
+                    </div>
+                </div>
+
+                <input type="submit" name="submit" value="Continue" class="govuk-button" id="submit-id-submit">
+
+            </form>
+
+        </div>
+        <script>
+            var rows = document.getElementById("input-table");
+            var count = rows.children.length
+            var roles = [
+                'Doctor',
+                'Doctor with occupational medicine specialty training',
+                'Doctor in occupational medicine specialty training',
+                'Doctor with a different OH qualification',
+                'Doctor in training towards a different OH qualification',
+                'Doctor with other qualification',
+                'Nurse',
+                'Nurse with specialist community public health nursing (SCPHN) OH qualification',
+                'Nurse training towards SCPHN OH qualification',
+                'Nurse with other OH qualification',
+                'Nurse without OH qualifications',
+                'OH Technician',
+                'Case worker',
+                'Counsellor',
+                'Physiotherapist',
+                'Psychologist',
+                'Occupational therapist',
+                'Health and wellbeing specialist',
+            ];
+
+            function addRow() {
+
+                count++
+
+                var table = document.getElementById("input-table");
+                var row = table.insertRow(-1);
+                row.className = "govuk-table__row"
+                var cell1 = row.insertCell(0);
+                cell1.className = "govuk-table__cell"
+                var cell2 = row.insertCell(1);
+                cell2.className = "govuk-table__cell"
+                var cell3 = row.insertCell(2);
+                cell3.className = "govuk-table__cell"
+
+                var role_options = ''
+                for (let i = 0; i < roles.length; i++) {
+                    role_options += `<option value="role_${i+1}">${roles[i]}</option>`
+                }
+
+                cell1.innerHTML = `<th scope="row" class="govuk-table__header"><select class="govuk-select inline-select" id="role_${count}" name="role_${count}"><option disabled selected value> -- select an option -- </option>${role_options}</select></th>`
+
+                cell2.innerHTML = `<input class="govuk-input govuk-input--width-2" id="number_${count}" name="number_${count}" type="text" value="">`;
+                cell3.innerHTML = '<button class="govuk-button govuk-button--warning inline-button" data-module="govuk-button" onclick="return this.parentNode.parentNode.remove();" type="button">delete</button>'
+
+
+
+
+                return
+            }
+
+        </script>
+{% endblock %}
+
+{% block extra_css %}
+    <style>
+        .inline-button {
+            margin-bottom: 0px
+        }
+        .inline-select {
+            width:100%;
+            max-width:200px;
+        }
+    </style>
 {% endblock %}
