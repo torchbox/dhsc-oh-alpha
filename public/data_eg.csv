@@ -1,0 +1,16 @@
+Question,Name,NI Number,DOB,Start date,End date,Reason for leaving,OH role,Contract type,Retirement plan
+Sub question,,,,,,,What is your main occupational health role?,,Do you have any plans to retire in the next 12 months?
+Type,String,Validated string,date,date,date,string,Radio,,Radio
+Values,text,text,date picker,date picker,date picker,text,Clinical psychologist with OH specialism,,Yes
+,,,,,,,Doctor with other OH qualifications,,No
+,,,,,,,Doctor without OH specialism or qualifications,,Don't know
+,,,,,,,Nurse registered with OH specialism,,
+,,,,,,,Nurse training towards OH specialism,,
+,,,,,,,Nurse with other OH qualifications,,
+,,,,,,,Nurse without OH specialism or qualifications,,
+,,,,,,,Occupational Health Physician,,
+,,,,,,,Occupational Therapist,,
+,,,,,,,OH technicians or healthcare assistant,,
+,,,,,,,Physiotherapist,,
+,,,,,,,Registrar in training to become occupational medicine specialists,,
+,,,,,,,Other,,

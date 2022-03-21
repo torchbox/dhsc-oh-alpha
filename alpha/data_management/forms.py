@@ -5,7 +5,7 @@ from django import forms
 from alpha.data_management import services
 
 
-class DataUploadForm(forms.Form):
+class BulkDataUploadForm(forms.Form):
     file = forms.FileField(
         label="Upload a file",
         help_text="Select the CSV file to upload.",
@@ -13,7 +13,7 @@ class DataUploadForm(forms.Form):
     )
 
     def __init__(self, *args, **kwargs):
-        super(DataUploadForm, self).__init__(*args, **kwargs)
+        super(BulkDataUploadForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
             HTML.heading("h1", "l", "Upload Ocupational Health Data"),
@@ -23,9 +23,34 @@ class DataUploadForm(forms.Form):
 
     def clean_file(self):
         data = self.cleaned_data
-
         # TODO
         # This will force an error for the time being until we have use
         # cases planned out.
         services.parse_csv(data["file"])
         return data
+
+
+class BulkStaffDataUploadForm(BulkDataUploadForm):
+    def __init__(self, *args, **kwargs):
+        super(BulkStaffDataUploadForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            HTML.heading("h1", "l", "Add staff details in bulk"),
+            HTML.p("Information you will need for each staff record"),
+            HTML.p(
+                """<ul class="govuk-list govuk-list--bullet">
+                        <li>registered working location</li>
+                        <li>name or unique reference ID</li>
+                        <li>Professional Identifier</li>
+                        <li>Country of qualification</li>
+                        <li>date of birth</li>
+                        <li>employment dates</li>
+                        <li>contract type - full-time, part-time or zero hours</li>
+                    </ul>"""
+            ),
+            HTML.p(
+                '<a href="/staff_data_eg.csv" class="govuk-button" aria-label="Download CSV">Download CSV</a>'
+            ),
+            "file",
+            Submit("submit", "Submit"),
+        )
