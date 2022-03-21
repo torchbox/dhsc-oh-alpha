@@ -28,7 +28,3 @@ class UpoadSuccess(TemplateView):
 
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
-
-
-class Guide(TemplateView):
-    template_name = "data_management/guide.html"

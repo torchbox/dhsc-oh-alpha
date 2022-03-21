@@ -15,9 +15,4 @@ urlpatterns = [
         views.UpoadSuccess.as_view(),
         name="success",
     ),
-    path(
-        "guide/",
-        views.Guide.as_view(),
-        name="guide",
-    ),
 ]
