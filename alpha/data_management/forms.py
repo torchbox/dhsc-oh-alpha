@@ -39,13 +39,14 @@ class BulkStaffDataUploadForm(BulkDataUploadForm):
             HTML.p("Information you will need for each staff record"),
             HTML.p(
                 """<ul class="govuk-list govuk-list--bullet">
-                        <li>registered working location</li>
-                        <li>name or unique reference ID</li>
+                        <li>Name or unique reference ID</li>
+                        <li>Registered working location</li>
+                        <li>Role</li>
                         <li>Professional Identifier</li>
+                        <li>Hours worked</li>
                         <li>Country of qualification</li>
-                        <li>date of birth</li>
-                        <li>employment dates</li>
-                        <li>contract type - full-time, part-time or zero hours</li>
+                        <li>Date of birth</li>
+                        <li>Employment start/end dates</li>
                     </ul>"""
             ),
             HTML.p(
