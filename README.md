@@ -1,21 +1,6 @@
 # Occupational Health Workforce Dataset
 
-## Technical documentation
-
-This project contains technical documentation written in Markdown in the `/docs` folder. This covers:
-
-- continuous integration
-- deployment
-- git branching
-- project conventions
-
-You can view it using `mkdocs` by running:
-
-```bash
-mkdocs serve
-```
-
-The documentation will be available at: http://localhost:8001/
+This repo contains prototype code produced during the Department for Health and Social Care Occupational Health Alpha phase to get feedback on designs and assumptions. The objective was to learn through prototyping rather than deliver production grade code.
 
 # Setting up a local build
 
