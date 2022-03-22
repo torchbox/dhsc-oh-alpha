@@ -1,8 +1,6 @@
 import csv
 from tempfile import NamedTemporaryFile
 
-from django.core.exceptions import ValidationError
-
 
 def parse_csv(file):
     # Read the file in memory for now
@@ -15,7 +13,8 @@ def parse_csv(file):
             reader = csv.reader(file, delimiter=",")
             for index, row in enumerate(reader):
                 # TODO - put in place some validation use cases to raise
-                if row:
-                    raise ValidationError(
-                        "There was a problem with your CSV file...",
-                    )
+                pass
+                # if row:
+                #     raise ValidationError(
+                #         "There was a problem with your CSV file...",
+                #     )

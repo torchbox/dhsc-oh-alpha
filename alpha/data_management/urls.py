@@ -6,9 +6,9 @@ app_name = "data_management"
 
 urlpatterns = [
     path(
-        "upload/",
-        views.Upload.as_view(),
-        name="upload",
+        "upload_staff/",
+        views.BulkUploadStaff.as_view(),
+        name="bulk_upload_staff",
     ),
     path(
         "success/",
