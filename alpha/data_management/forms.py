@@ -35,18 +35,23 @@ class BulkStaffDataUploadForm(BulkDataUploadForm):
         super(BulkStaffDataUploadForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
-            HTML.heading("h1", "l", "Add staff details in bulk"),
-            HTML.p("Information you will need for each staff record"),
+            HTML.heading("h1", "l", "Upload workforce data"),
+            HTML.p(
+                "Bulk upload demographic and employment data "
+                "for all of your occupational health workforce in a single CSV file."
+            ),
+            HTML.heading("h2", "m", "Before you start"),
+            HTML.p("You will need the following information for each member of staff:"),
             HTML.p(
                 """<ul class="govuk-list govuk-list--bullet">
-                        <li>Name or unique reference ID</li>
-                        <li>Registered working location</li>
-                        <li>Role</li>
-                        <li>Professional Identifier</li>
-                        <li>Hours worked</li>
-                        <li>Country of qualification</li>
-                        <li>Date of birth</li>
-                        <li>Employment start/end dates</li>
+                        <li>name or unique reference ID</li>
+                        <li>registered working location</li>
+                        <li>role</li>
+                        <li>professional identifier</li>
+                        <li>hours usually worked per week</li>
+                        <li>country of initial qualification</li>
+                        <li>date of birth</li>
+                        <li>employment start/end dates</li>
                     </ul>"""
             ),
             HTML.p(
