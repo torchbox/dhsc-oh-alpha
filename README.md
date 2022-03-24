@@ -1,6 +1,6 @@
 # Occupational Health Workforce Dataset
 
-This repo contains prototype code produced during the Department for Health and Social Care Occupational Health Alpha phase to get feedback on designs and assumptions. The objective was to learn through prototyping rather than deliver production grade code.
+This repo contains prototype code produced during the Work and Health Unit Occupational Health Alpha phase to get feedback on designs and assumptions. The objective was to learn through prototyping rather than deliver production grade code.
 
 # Setting up a local build
 
